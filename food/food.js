@@ -1,4 +1,6 @@
+
 function rederFoods() {
+  let foodList = JSON.parse(localStorage.getItem("foodList"))
     let dataFoods = document.getElementById("dataFoods");
     let data=``
     for(let i=0;i<foodList.length;i++){
@@ -35,6 +37,16 @@ function rederFoods() {
     dataFoods.innerHTML=data
 }
 rederFoods()
+
 function nextpageaddfood(){
     window.location.href="/addfood/addfood.html"
 }
+function nameUserLogin(){
+    let userLogin = JSON.parse(localStorage.getItem("userLogin") || sessionStorage.getItem("userLogin"));
+    let nameUserLogin=document.getElementById("nameUserLogin")
+    let currentUser = userList.find(user => user.email === userLogin.email);
+    nameUserLogin.innerText=`Hello, ${currentUser.name} !`
+    nameUserLogin.style.fontSize="20px"
+}
+
+//     nameUserLogin()
