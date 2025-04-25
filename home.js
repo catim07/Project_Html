@@ -4,10 +4,10 @@ function renderRecipes(){
     for(let i=0;i<foodList.length;i++){
         data+=`
         <div
-              style="gap: 20px; width: calc(50% - 20px); height: auto; padding: 30px 0; border: 1px solid; margin-top: 30px; border-radius: 10px;">
+              style=" width: calc(50% - 15px); height: auto; padding: 30px 0; border: 1px solid; margin-top: 30px; border-radius: 10px;">
               <div style="width: 100%; display: flex; padding-left: 20px;">
                 <div
-                  style="height: 50px; width: 200px; box-shadow: 0px 2px 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: orange; margin-right: 40px; font-size: 15px;">
+                  style="height: 50px; width: 160px; box-shadow: 0px 2px 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: orange; margin-right: 40px; font-size: 15px;">
                   <i class="fa-solid fa-people-group" style="margin-right: 5px;"></i>
                   <div>Community Recipes</div>
                 </div>
@@ -27,7 +27,7 @@ function renderRecipes(){
                     </button>
                   </div>
                   <hr style="margin: 10px 0;">
-                  <div style="display: flex; justify-content: space-around; text-align: center;">
+                  <div style="display: flex; justify-content: space-around; text-align: center; font-size: 15px">
                     <div>
                       <small>by</small><br><strong>100g</strong>
                     </div>
@@ -49,6 +49,14 @@ function renderRecipes(){
             </div>
         `
     }
+    data+=`
+    <div style="width: 90%; margin-top: 50px; display: flex; justify-content: flex-end; margin-right: 100px; margin-bottom: 30px;">
+                <button><i class="fa-solid fa-left-long"></i></button>
+                <button>1</i></button>
+                <button>2</i></button>
+                <button><i class="fa-solid fa-right-long"></i></button>
+              </div>
+    `
     dataRecipes.innerHTML=data
 }
 renderRecipes()

@@ -28,15 +28,15 @@
           <i class="fa-solid fa-apple-whole"></i>
           Your Workspaces
         </div>
-        <p onclick="window.location.href=`/index.html`" style="color: rgb(255, 255, 255); font-size: 20px;"><i
+        <p onclick="window.location.href=`/index.html`" style="color: rgb(255, 255, 255); font-size: 20px; cursor: pointer;"><i
             class="fa-solid fa-house"></i> Homepage</p>
         <p style="color: rgb(255, 255, 255);font-size: 20px;"><i class="fa-solid fa-bowl-food"></i> Foods</p>
-        <p style="color: rgb(255, 255, 255);font-size: 20px;"><i class="fa-solid fa-pen-to-square"></i> Closed Boards
+        <p onclick="window.location.href=`/recipes/recipes.html`" style=" color: rgb(255, 255, 255);font-size: 20px; cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i> Closed Boards
         </p>
       </div>
       <div
         style="display: flex; height: 10%; flex-direction: column; justify-content: space-evenly;background-color: aquamarine; padding-left: 30px;">
-        <p onclick="logout()" style="color: rgb(255, 255, 255);font-size: 20px;"><i
+        <p onclick="logout()" style="color: rgb(255, 255, 255);font-size: 20px; cursor: pointer;"><i
             class="fa-solid fa-right-from-bracket"></i> Sign out</p>
       </div>
     </div>
@@ -45,11 +45,11 @@
       <div style=" width: 100%; display: flex; flex-direction: column; padding: 20px;">
         <div style=" width: 100%; display: flex; justify-content:space-between;">
           <div
-          style="width: 50px; height: 50px; background-color: rgb(30, 214, 153); display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white;">
-          <h2><i class="fa-solid fa-list"></i></h2>
-          
-        </div>
-        <div id="nameUserLogin"></div>
+            style="width: 50px; height: 50px; background-color: rgb(30, 214, 153); display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white;">
+            <h2><i class="fa-solid fa-list"></i></h2>
+
+          </div>
+          <div id="nameUserLogin"></div>
         </div>
       </div>
       <hr>
@@ -64,7 +64,7 @@
           <h2>Foods</h2>
           <h4>Search, consuit and add new foods to the system</h4>
           <div style="display: flex; font-size: 30px; gap: 20px;">
-            <input type="text" name="search" id="search" placeholder="Search food"
+            <input onchange="searchFood()" type="text" name="search" id="search" placeholder="Search food"
               style="width: 50%; border-radius: 10px;">
             <div
               style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden; font-family: sans-serif;">
@@ -72,15 +72,20 @@
                 style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
                 <i class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
               </div>
-              <input type="text" placeholder="Sort by nutrient"
-                style="border: none; outline: none; padding: 8px 12px; flex: 1; font-size: 16px; color: gray;">
+              <select id="sortNutrient" onchange="sortByNutrient()"
+                style="border: none; outline: none; padding: 8px 12px; font-size: 16px; color: gray;">
+                <option value="">Sort by nutrient</option>
+                <option value="energy">Energy</option>
+                <option value="fat">Fat</option>
+                <option value="carbohydrate">Carbohydrate</option>
+                <option value="protein">Protein</option>
+              </select>
             </div>
-            <input type="text" id="category" name="category" placeholder="category"
+            <input onchange="searchCategory()" type="text" id="category" name="category" placeholder="category"
               style="width: 20%; border-radius: 10px;">
           </div>
-          <div id="dataFoods" style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px; padding-bottom: 30px;">
-            
-            
+          <div id="dataFoods"
+            style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px; padding-bottom: 30px;">
           </div>
         </div>
       </div>

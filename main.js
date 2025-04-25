@@ -90,7 +90,7 @@ let foodList=[
     }
 ]
 if(localStorage.getItem("foodList")){
-    userList=JSON.parse(localStorage.getItem("foodList"))
+    foodList=JSON.parse(localStorage.getItem("foodList"))
 }else{
     localStorage.setItem("foodList",JSON.stringify(foodList))
 }

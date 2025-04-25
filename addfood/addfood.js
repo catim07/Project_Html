@@ -21,7 +21,7 @@ function addfood() {
     macronutrients: macronutrients,
     micronutrients: micronutrients
     };
-    foodList.push(newFood);
-    updateData(foodListFood)
+    foodList.push(newFood)
+    updateDataFood(foodList)
     window.location.href="/food/food.html"
 }
