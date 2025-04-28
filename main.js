@@ -37,6 +37,8 @@ function nextPageFood(){
 
 let foodList=[
     {
+        "like": 0,
+        "likedUsers": [],
       "id": 1,
       "name": "Ackee, canned, drained",
       "source": "Minh Cuong Tran",
@@ -94,3 +96,41 @@ if(localStorage.getItem("foodList")){
 }else{
     localStorage.setItem("foodList",JSON.stringify(foodList))
 }
+
+
+
+function likeFood(index) {
+    let foodList = JSON.parse(localStorage.getItem('foodList'));
+    let userLogin = JSON.parse(localStorage.getItem('userLogin')) || JSON.parse(sessionStorage.getItem('userLogin'));
+  
+    if (!userLogin || userLogin.length === 0) {
+      alert("Bạn cần đăng nhập trước khi like!");
+      return;
+    }
+  
+    let currentUserEmail = userLogin.email;
+  
+    if (!foodList[index].likedUsers) {
+      foodList[index].likedUsers = [];
+    }
+  
+    if (!foodList[index].likedUsers.includes(currentUserEmail)) {
+      foodList[index].like += 1;
+      foodList[index].likedUsers.push(currentUserEmail);
+    } else {
+      foodList[index].like -= 1;
+      foodList[index].likedUsers = foodList[index].likedUsers.filter(email => email !== currentUserEmail);
+    }
+  
+    localStorage.setItem("foodList", JSON.stringify(foodList));
+    renderFoodFromList(foodList);
+    renderFoodPain(foodList);
+  }
+  
+
+
+  function nextPage(index){
+    window.location.href="/recipesdetail/recipesdetail.html"
+    localStorage.setItem("indexRecipes",JSON.stringify(index))
+    
+  }

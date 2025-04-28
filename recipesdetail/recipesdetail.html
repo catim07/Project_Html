@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe detail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./recipesdetail.css"> <!-- File CSS mình đã tách -->
+    <script>
+        if (!localStorage.getItem("userLogin")) {
+            if (!sessionStorage.getItem("userLogin")) {
+                window.location.href = "/authen/signin.html"
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <div class="logo-container">
+                    <img src="../bd9a9a7d62b2b3b87b6c262d3ea21469fddf65f8.png" alt="">
+                </div>
+                <p class="sidebar-link" onclick="window.location.href=`/index.html`">
+                    <i class="fa-solid fa-house"></i> Homepage
+                </p>
+                <p class="sidebar-link" onclick="window.location.href=`/food/food.html`">
+                    <i class="fa-solid fa-bowl-food"></i> Foods
+                </p>
+                <p class="sidebar-link" onclick="window.location.href=`/recipes/recipes.html`">
+                    <i class="fa-solid fa-pen-to-square"></i> Closed Boards
+                </p>
+            </div>
+            <div class="sidebar-signout">
+                <p class="signout-link" onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Sign out
+                </p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="top-bar-header">
+                    <div class="icon-box">
+                        <h2><i class="fa-solid fa-list"></i></h2>
+                    </div>
+                    <div id="nameUserLogin"></div>
+                </div>
+            </div>
+            <hr>
+            <div class="title-box">
+                <h2>Recipes</h2>
+                <h4>Create, check and update recipes</h4>
+            </div>
+
+            <div class="content-container">
+                <div class="left-card">
+                    <div class="community-card">
+                        <div class="community-header">
+                            <div class="community-item">
+                                <div>
+                                    <i class="fa-solid fa-people-group"></i> Community Recipes
+                                </div>
+                            </div>
+                            <div class="community-item" style="width: 70px;">
+                                <div><i class="fa-regular fa-heart"></i> 37</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="community-item" style="width: 150px; margin-left: 40px; margin-bottom: 30px; font-size: 15px;">
+                                <div>
+                                    <i class="fa-solid fa-tag" style="color: rgb(212, 139, 4);"></i> Vegetarian dishes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="favorite-button">
+                        <div><i class="fa-solid fa-heart" style="color: red;"></i> add to favorite</div>
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-card-inner">
+                        <div>
+                            <h2>Basic information</h2>
+                            check and-edit recipe's basic information
+                        </div>
+                        <br>
+                        <div class="basic-info">
+                            <div class="info-row">
+                                <div class="info-label">Name</div>
+                                <div class="info-value">Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Description</div>
+                                <div class="info-value">Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Author</div>
+                                <div class="info-value">Turmeric Roasted cauliflower</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Total time</div>
+                                <div class="info-value">Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Preparation time</div>
+                                <div class="info-value">Turmeric Roasted c</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Final weight</div>
+                                <div class="info-value">Turmeric Roasted cauliflower s</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Portions</div>
+                                <div class="info-value">Turmeric Roasted c</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="creation-section">
+                <div class="creation-header">
+                    <h2>Creation</h2>
+                    <h4>Create the recipe and choose the ingredients</h4>
+                </div>
+                <div class="ingredients-cooking">
+                    <div class="ingredients-section">
+                        <div class="ingredients-box">
+                            <div class="ingredients-list">
+                                <h4>Ingredients</h4>
+                                Search and add ingredients to recipe
+                                <div class="ingredient-item">1 chopped cup (1/2" pieces) of cau</div>
+                                <div class="ingredient-item">1 chopped cup (1/2" pieces) of cau</div>
+                                <div class="ingredient-item">1 chopped cup (1/2" pieces) of cau</div>
+                                <div class="ingredient-item">1 chopped cup (1/2" pieces) of cau</div>
+                            </div>
+                        </div>
+
+                        <div class="cooking-method">
+                            <div class="cooking-steps">
+                                <h4>Cooking method</h4>
+                                Give instructions to prepare this recipe
+                                <div class="cooking-step">
+                                    <div class="step-number">1</div>
+                                    <div class="step-instruction">STEP 1 Heat the oven to 200C/fan 180C/gas 6. Put the cauliflower in an ovenproof</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analysis-panel">
+                        <div class="analysis-box">
+                            <h4>Global analysis per portion</h4>
+                            <span>Energy, macronutrients and fiber distribution</span>
+                            <br>
+                            <div class="analysis-charts">
+                                <div class="chart-wrapper">
+                                    <canvas id="fatChart"></canvas>
+                                    <div class="chart-label">16g</div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <canvas id="carbChart"></canvas>
+                                    <div class="chart-label">45g</div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <canvas id="proteinChart"></canvas>
+                                    <div class="chart-label">12g</div>
+                                </div>
+                                <div class="chart-wrapper">
+                                    <canvas id="fiberChart"></canvas>
+                                    <div class="chart-label">6g</div>
+                                </div>
+                            </div>
+                            <div class="chart-legend">
+                                <div>Fat</div>
+                                <div>Carbohydrate</div>
+                                <div>Protein</div>
+                                <div>Fiber</div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-box">
+                            <h4>Macronutrients per portion</h4>
+                            <span>Macronutrients distribution of the recipe</span>
+                            <br>
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                        </div>
+
+                        <div class="analysis-box">
+                            <h4>Macronutrients per portion</h4>
+                            <span>Macronutrients distribution of the recipe</span>
+                            <br>
+                            <div class="nutrient-list">
+                                <div class="nutrient-item"><div>Sodium</div><div>1481mg</div></div>
+                                <div class="nutrient-item"><div>Vitamin A</div><div>1481mg</div></div>
+                                <div class="nutrient-item"><div>Vitamin B-6</div><div>1481mg</div></div>
+                                <div class="nutrient-item"><div>Vitamin B-12</div><div>1481mg</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../main.js"></script>
+    <script src="./recipesdetail.js"></script>
+</body>
+</html>

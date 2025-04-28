@@ -1,0 +1,98 @@
+@media screen and (min-width: 1440px) {
+    body {
+        background: #f6f5f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+      
+      h1, h2 {
+        font-weight: bold;
+      }
+      
+      input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 100%;
+      }
+      
+      button {
+        border-radius: 20px;
+        color: #FFFFFF;
+        font-size: 12px;
+        padding: 12px 45px;
+      }
+      
+      form {
+        background-color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 50px;
+        height: 100%;
+        text-align: center;
+      }
+      
+      .container {
+        background-color: #fff;
+        border-radius: 10px;
+        width: 768px;
+        max-width: 100%;
+        min-height: 480px;
+      }
+}
+
+@media screen and (min-width: 768px) {
+    body {
+        background: #f6f5f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+      
+      h1, h2 {
+        font-weight: bold;
+      }
+      
+      input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 100%;
+      }
+      
+      button {
+        border-radius: 20px;
+        color: #FFFFFF;
+        font-size: 12px;
+        padding: 12px 45px;
+      }
+      
+      form {
+        background-color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0 50px;
+        height: 100%;
+        text-align: center;
+      }
+      
+      .container {
+        background-color: #fff;
+        border-radius: 10px;
+        width: 768px;
+        max-width: 100%;
+        min-height: 480px;
+      }
+}
+

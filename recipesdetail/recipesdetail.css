@@ -1,0 +1,357 @@
+/* Container tổng */
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Sidebar trái */
+.sidebar {
+    width: 20%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(10, 8, 10);
+    justify-content: space-between;
+}
+
+/* Sidebar nội dung trên */
+.sidebar-content {
+    display: flex;
+    height: 50%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 30px;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    color: aquamarine;
+}
+
+.logo-container img {
+    width: 200px;
+}
+
+/* Các nút điều hướng trong sidebar */
+.sidebar-link {
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+/* Sign out */
+.sidebar-signout {
+    display: flex;
+    height: 10%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #12896D;
+    padding-left: 30px;
+}
+
+.signout-link {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+/* Main content bên phải */
+.main-content {
+    width: 80%;
+    overflow-y: auto;
+}
+
+/* Top bar */
+.top-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.top-bar-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(30, 214, 153);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color: white;
+}
+
+/* Box tiêu đề */
+.title-box {
+    padding: 20px;
+    box-shadow: 0px 6px 20px;
+}
+
+/* Nội dung phần body */
+.content-container {
+    margin: 30px;
+    display: flex;
+    gap: 20px;
+    width: calc(100% - 60px);
+}
+
+/* Card trái */
+.left-card {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+/* Card cộng đồng */
+.community-card {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.community-header {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.community-item {
+    display: flex;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.community-item i {
+    margin-right: 5px;
+    color: orange;
+}
+
+/* Favorite button */
+.favorite-button {
+    display: flex;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    margin-top: 30px;
+}
+
+/* Card phải */
+.right-card {
+    width: 70%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px;
+}
+
+.right-card-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.basic-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-row {
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.info-label {
+    width: 30%;
+    background-color: rgb(236, 236, 236);
+    padding: 10px;
+    border: 1px solid gray;
+    border-right: none;
+    display: flex;
+    align-items: center;
+}
+
+.info-value {
+    width: 70%;
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+/* Creation section */
+.creation-section {
+    width: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+
+.creation-header {
+    padding: 20px;
+    background-color: #1AB394;
+    color: white;
+    border-radius: 10px;
+}
+
+/* Ingredients and Cooking Method */
+.ingredients-cooking {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+/* Ingredients section */
+.ingredients-section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ingredients-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 10px;
+    height: auto;
+    box-shadow: 0px 2px 6px;
+    padding: 20px;
+}
+
+.ingredient-item {
+    width: 100%;
+    border: 1px solid rgb(223, 223, 223);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    height: auto;
+}
+
+/* Cooking method */
+.cooking-method {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cooking-steps {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    height: auto;
+    box-shadow: 0px 2px 6px;
+    padding: 20px;
+}
+
+.cooking-step {
+    margin: 20px 0px;
+    display: flex;
+    height: auto;
+}
+
+.step-number {
+    background-color: #FAFAFB;
+    width: 10%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(214, 214, 214);
+}
+
+.step-instruction {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid rgb(214, 214, 214);
+    border-left: none;
+}
+
+/* Right analysis panel */
+.analysis-panel {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.analysis-box {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    height: auto;
+    box-shadow: 0px 2px 6px;
+    padding: 20px;
+}
+
+.analysis-charts {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.chart-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.nutrient-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.nutrient-item {
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nutrient-item:nth-child(even) {
+    background-color: #FAFAFB;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    color: #666;
+}

@@ -18,6 +18,10 @@ function addfood() {
     source: info.source,
     category: info.category,
     quantity: info.quantity,
+
+    like:0,
+    likeUser: [],
+
     macronutrients: macronutrients,
     micronutrients: micronutrients
     };

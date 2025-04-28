@@ -20,18 +20,17 @@
 
 <body>
   <div style="height: 100vh; width: 100vw; display: flex;position: fixed; top: 0; left: 0;">
-    <div
+    <div id="sidebar"
       style="width: 20%; height: 100vh; display: flex; flex-direction: column; background-color: rgb(10, 8, 10); justify-content: space-between;">
       <div
         style="display: flex; height: 50%; flex-direction: column; justify-content: space-evenly; margin-left: 30px;">
         <div style="display: flex; font-size: 30px; align-items: center; color: aquamarine;">
-          <i class="fa-solid fa-apple-whole"></i>
-          Your Workspaces
+          <img src="../bd9a9a7d62b2b3b87b6c262d3ea21469fddf65f8.png" alt="" style="width: 200px;">
         </div>
         <p onclick="window.location.href=`/index.html`" style="color: rgb(255, 255, 255); font-size: 20px; cursor: pointer;"><i
             class="fa-solid fa-house"></i> Homepage</p>
-        <p style="color: rgb(255, 255, 255);font-size: 20px;"><i class="fa-solid fa-bowl-food"></i> Foods</p>
-        <p onclick="window.location.href=`/recipes/recipes.html`" style=" color: rgb(255, 255, 255);font-size: 20px; cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i> Closed Boards
+        <p  style="color: rgb(255, 255, 255);font-size: 20px;"><i class="fa-solid fa-bowl-food"></i> Foods</p>
+        <p onclick="window.location.href=`/recipes/recipes.html`" style=" color: rgb(255, 255, 255);font-size: 20px; cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i> Recipes
         </p>
       </div>
       <div
@@ -41,12 +40,12 @@
       </div>
     </div>
 
-    <div style="width: 80%;overflow-y: auto;">
+    <div id="content" style="width: 80%;overflow-y: auto;">
       <div style=" width: 100%; display: flex; flex-direction: column; padding: 20px;">
         <div style=" width: 100%; display: flex; justify-content:space-between;">
-          <div
-            style="width: 50px; height: 50px; background-color: rgb(30, 214, 153); display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white;">
-            <h2><i class="fa-solid fa-list"></i></h2>
+          <div onclick="toggleSidebar()"
+            style="width: 50px; height: 50px; background-color: rgb(30, 214, 153); display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white; cursor: pointer;">
+            <h2><i class="fa-solid fa-bars"></i></h2>
 
           </div>
           <div id="nameUserLogin"></div>

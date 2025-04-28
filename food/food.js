@@ -33,7 +33,7 @@ function renderFoodFromList(list) {
 
   for (let i = 0; i < temp.length; i++) {
     data += `
-      <div  onclick="changeFood(${i})" 
+      <div onclick="changeFood(${i+(curPageFood - 1) * maxItemFood})"  
            style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px;">
           <span>
               ${temp[i].name}<br>
@@ -70,15 +70,32 @@ function renderFoodPagin(list) {
   let buttons = "";
 
   for (let i = 1; i <= countPage; i++) {
-    buttons += `<button onclick="setPageFood(${i})" class="btn" style="color:${i === curPageFood ? 'red' : 'black'}">${i}</button>`;
+    buttons += `
+      <li class="page-item ${i === curPageFood ? 'active' : ''}">
+        <a class="page-link" href="#" onclick="setPageFood(${i})">${i}</a>
+      </li>
+    `;
   }
 
   pagin.innerHTML = `
-    <button onclick="setPageFood(${curPageFood - 1})">Prev</button>
-    ${buttons}
-    <button onclick="setPageFood(${curPageFood + 1})">Next</button>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item ${curPageFood === 1 ? 'disabled' : ''}">
+          <a class="page-link" href="#" onclick="setPageFood(${curPageFood - 1})" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        ${buttons}
+        <li class="page-item ${curPageFood === countPage ? 'disabled' : ''}">
+          <a class="page-link" href="#" onclick="setPageFood(${curPageFood + 1})" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   `;
 }
+
 
 function setPageFood(index) {
   let foodList = JSON.parse(localStorage.getItem("foodList"))
@@ -95,23 +112,14 @@ function setPageFood(index) {
 }
 
 
-
-
 function sortByNutrient() {
   let selectedNutrient = document.getElementById("sortNutrient").value;
   let foodList = JSON.parse(localStorage.getItem("foodList"));
-
-  if (!selectedNutrient) {
-    renderFoodFromList(foodList);
-    return;
-  }
-
   foodList.sort((a, b) => {
     let start = a.macronutrients[selectedNutrient] || 0;
     let end = b.macronutrients[selectedNutrient] || 0;
     return end - start;
   });
-
   renderFoodFromList(foodList);
   renderFoodPagin(foodList)
 }
@@ -126,3 +134,19 @@ function searchCategory() {
 
 renderFoodFromList(foodList);
 renderFoodPagin(foodList);
+
+let isCollapsed = false;
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const content = document.getElementById('content');
+  if (!isCollapsed) {
+    sidebar.style.display = 'none';
+    content.style.width = '100%';
+  } else {
+    sidebar.style.display = 'flex';
+    sidebar.style.width = '20%';
+    content.style.width = '80%';
+  }
+  isCollapsed = !isCollapsed;
+}
