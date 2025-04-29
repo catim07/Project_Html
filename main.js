@@ -98,6 +98,47 @@ if(localStorage.getItem("foodList")){
 }
 
 
+let recipe=[
+  {
+    "id": 1,
+    "coverSrc": "https://nutriumstorageaccount.blob.core.windows.net/rails-active-storage/6qim5uox87nr22st6i7nzt8",
+    "name": "Turmeric Roasted Cauliflower Salad (lowfodmap)",
+    "description": "Our roasted cauliflower salad with turmeric is low in calories and packed with punchy flavor.",
+    "author": "Joana Jardim",
+    "totalTime": "00:40",
+    "preparationTime": "00:40",
+    "finalWeight": "978.8 grams",
+    "portions": 4,
+    "ingredients": [
+      
+    ],
+    "cookingMethods": [
+      {
+        "id": 1,
+        "content": "STEP 1 Heat the oven to 200C/fan 180C/gas 6. Put the cauliflower in an ovenproof dish or tin,"
+      }
+    ],
+    "category": [
+      {
+        "id": 1,
+        "name": "vegetarian"
+      },
+      {
+        "id": 2,
+        "name": "appetizer"
+      }
+    ]
+  }
+]
+if(localStorage.getItem("recipe")){
+  recipe=JSON.parse(localStorage.getItem("recipe"))
+}else{
+  localStorage.setItem("recipe",JSON.stringify(recipe))
+}
+
+
+
+
 
 function likeFood(index) {
     let foodList = JSON.parse(localStorage.getItem('foodList'));
@@ -129,8 +170,4 @@ function likeFood(index) {
   
 
 
-  function nextPage(index){
-    window.location.href="/recipesdetail/recipesdetail.html"
-    localStorage.setItem("indexRecipes",JSON.stringify(index))
-    
-  }
+  

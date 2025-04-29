@@ -1,69 +1,77 @@
 
-function changeFood(index) {
-    localStorage.setItem("selectedIndex", index);
+function changeFood(id) {
+    localStorage.setItem("selectedFoodId", id);
     window.location.href = "/ingredient/ingredient.html";
 }
 
+
 document.addEventListener("DOMContentLoaded", () => {
-    const foodList = JSON.parse(localStorage.getItem("foodList"));
-    const index = localStorage.getItem("selectedIndex");
-    const food = foodList[index];
-    document.querySelector('input[name="name"]').value = food.name;
-    document.querySelector('input[name="source"]').value = food.source;
-    document.querySelector('input[name="category"]').value = food.category;
-    document.querySelector('input[name="quantity"]').value = food.quantity;
+    const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
+    const selectedId = localStorage.getItem("selectedFoodId");
+    const food = foodList.find(item => item.id == selectedId); // Tìm theo ID
 
-    document.querySelector('input[name="energy"]').value = food.macronutrients.energy;
-    document.querySelector('input[name="carbohydrate"]').value = food.macronutrients.carbohydrate;
-    document.querySelector('input[name="fat"]').value = food.macronutrients.fat;
-    document.querySelector('input[name="protein"]').value = food.macronutrients.protein;
-    const micronutrients = food.micronutrients;
-    document.querySelector('input[name="cholesterol"]').value = micronutrients.cholesterol;
-    document.querySelector('input[name="fiber"]').value = micronutrients.fiber;
-    document.querySelector('input[name="sodium"]').value = micronutrients.sodium;
-    document.querySelector('input[name="water"]').value = micronutrients.water;
-    document.querySelector('input[name="vitaminA"]').value = micronutrients.vitaminA;
-    document.querySelector('input[name="vitaminB6"]').value = micronutrients.vitaminB6;
-    document.querySelector('input[name="vitaminB12"]').value = micronutrients.vitaminB12;
-    document.querySelector('input[name="vitaminC"]').value = micronutrients.vitaminC;
-    document.querySelector('input[name="vitaminD"]').value = micronutrients.vitaminD;
-    document.querySelector('input[name="vitaminE"]').value = micronutrients.vitaminE;
-    document.querySelector('input[name="vitaminK"]').value = micronutrients.vitaminK;
-    document.querySelector('input[name="starch"]').value = micronutrients.starch;
-    document.querySelector('input[name="lactose"]').value = micronutrients.lactose;
-    document.querySelector('input[name="alcohol"]').value = micronutrients.alcohol;
-    document.querySelector('input[name="caffeine"]').value = micronutrients.caffeine;
-    document.querySelector('input[name="sugars"]').value = micronutrients.sugars;
-    document.querySelector('input[name="calcium"]').value = micronutrients.calcium;
-    document.querySelector('input[name="iron"]').value = micronutrients.iron;
-    document.querySelector('input[name="magnesium"]').value = micronutrients.magnesium;
-    document.querySelector('input[name="phosphorus"]').value = micronutrients.phosphorus;
-    document.querySelector('input[name="potassium"]').value = micronutrients.potassium;
-    document.querySelector('input[name="zinc"]').value = micronutrients.zinc;
-    document.querySelector('input[name="copper"]').value = micronutrients.copper;
-    document.querySelector('input[name="fluoride"]').value = micronutrients.fluoride;
-    document.querySelector('input[name="manganese"]').value = micronutrients.manganese;
-    document.querySelector('input[name="selenium"]').value = micronutrients.selenium;
-    document.querySelector('input[name="thiamin"]').value = micronutrients.thiamin;
-    document.querySelector('input[name="riboflavin"]').value = micronutrients.riboflavin;
-    document.querySelector('input[name="niacin"]').value = micronutrients.niacin;
-    document.querySelector('input[name="pantothenicAcid"]').value = micronutrients.pantothenicAcid;
-    document.querySelector('input[name="folateTotal"]').value = micronutrients.folateTotal;
-    document.querySelector('input[name="folicAcid"]').value = micronutrients.folicAcid;
-    document.querySelector('input[name="fattyAcidsTrans"]').value = micronutrients.fattyAcidsTrans;
-    document.querySelector('input[name="fattyAcidsSaturated"]').value = micronutrients.fattyAcidsSaturated;
-    document.querySelector('input[name="fattyAcidsMonounsaturated"]').value = micronutrients.fattyAcidsMonounsaturated;
-    document.querySelector('input[name="fattyAcidsPolyunsaturated"]').value = micronutrients.fattyAcidsPolyunsaturated;
-    document.querySelector('input[name="chloride"]').value = micronutrients.chloride;
+    if (!food) {
+        alert("Không tìm thấy thực phẩm!");
+        return;
+    }
+    document.querySelector('input[name="name"]').value = food.name || "";
+    document.querySelector('input[name="source"]').value = food.source || "";
+    document.querySelector('input[name="category"]').value = food.category || "";
+    document.querySelector('input[name="quantity"]').value = food.quantity || 0;
 
-})
+    document.querySelector('input[name="energy"]').value = food.macronutrients.energy || 0;
+    document.querySelector('input[name="carbohydrate"]').value = food.macronutrients.carbohydrate || 0;
+    document.querySelector('input[name="fat"]').value = food.macronutrients.fat || 0;
+    document.querySelector('input[name="protein"]').value = food.macronutrients.protein || 0;
 
+    const micronutrients = food.micronutrients || {};
 
+    document.querySelector('input[name="cholesterol"]').value = micronutrients.cholesterol || 0;
+    document.querySelector('input[name="fiber"]').value = micronutrients.fiber || 0;
+    document.querySelector('input[name="sodium"]').value = micronutrients.sodium || 0;
+    document.querySelector('input[name="water"]').value = micronutrients.water || 0;
+    document.querySelector('input[name="vitaminA"]').value = micronutrients.vitaminA || 0;
+    document.querySelector('input[name="vitaminB6"]').value = micronutrients.vitaminB6 || 0;
+    document.querySelector('input[name="vitaminB12"]').value = micronutrients.vitaminB12 || 0;
+    document.querySelector('input[name="vitaminC"]').value = micronutrients.vitaminC || 0;
+    document.querySelector('input[name="vitaminD"]').value = micronutrients.vitaminD || 0;
+    document.querySelector('input[name="vitaminE"]').value = micronutrients.vitaminE || 0;
+    document.querySelector('input[name="vitaminK"]').value = micronutrients.vitaminK || 0;
+    document.querySelector('input[name="starch"]').value = micronutrients.starch || 0;
+    document.querySelector('input[name="lactose"]').value = micronutrients.lactose || 0;
+    document.querySelector('input[name="alcohol"]').value = micronutrients.alcohol || 0;
+    document.querySelector('input[name="caffeine"]').value = micronutrients.caffeine || 0;
+    document.querySelector('input[name="sugars"]').value = micronutrients.sugars || 0;
+    document.querySelector('input[name="calcium"]').value = micronutrients.calcium || 0;
+    document.querySelector('input[name="iron"]').value = micronutrients.iron || 0;
+    document.querySelector('input[name="magnesium"]').value = micronutrients.magnesium || 0;
+    document.querySelector('input[name="phosphorus"]').value = micronutrients.phosphorus || 0;
+    document.querySelector('input[name="potassium"]').value = micronutrients.potassium || 0;
+    document.querySelector('input[name="zinc"]').value = micronutrients.zinc || 0;
+    document.querySelector('input[name="copper"]').value = micronutrients.copper || 0;
+    document.querySelector('input[name="fluoride"]').value = micronutrients.fluoride || 0;
+    document.querySelector('input[name="manganese"]').value = micronutrients.manganese || 0;
+    document.querySelector('input[name="selenium"]').value = micronutrients.selenium || 0;
+    document.querySelector('input[name="thiamin"]').value = micronutrients.thiamin || 0;
+    document.querySelector('input[name="riboflavin"]').value = micronutrients.riboflavin || 0;
+    document.querySelector('input[name="niacin"]').value = micronutrients.niacin || 0;
+    document.querySelector('input[name="pantothenicAcid"]').value = micronutrients.pantothenicAcid || 0;
+    document.querySelector('input[name="folateTotal"]').value = micronutrients.folateTotal || 0;
+    document.querySelector('input[name="folicAcid"]').value = micronutrients.folicAcid || 0;
+    document.querySelector('input[name="fattyAcidsTrans"]').value = micronutrients.fattyAcidsTrans || 0;
+    document.querySelector('input[name="fattyAcidsSaturated"]').value = micronutrients.fattyAcidsSaturated || 0;
+    document.querySelector('input[name="fattyAcidsMonounsaturated"]').value = micronutrients.fattyAcidsMonounsaturated || 0;
+    document.querySelector('input[name="fattyAcidsPolyunsaturated"]').value = micronutrients.fattyAcidsPolyunsaturated || 0;
+    document.querySelector('input[name="chloride"]').value = micronutrients.chloride || 0;
+});
+
+// Khi nhấn nút lưu
 function saveFood() {
     const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
-    const index = localStorage.getItem("selectedIndex");
+    const selectedId = localStorage.getItem("selectedFoodId");
 
     const updatedFood = {
+        id: Number(selectedId), // lưu lại ID cũ
         name: document.querySelector('input[name="name"]').value,
         source: document.querySelector('input[name="source"]').value,
         category: document.querySelector('input[name="category"]').value,
@@ -115,12 +123,8 @@ function saveFood() {
         }
     };
 
-    if (index !== null && foodList[index]) {
-        foodList[index] = updatedFood;
-        localStorage.setItem("foodList", JSON.stringify(foodList));
-        alert("Đã lưu thành công!");
-        window.location.href = "/food/food.html"
-    } else {
-        alert("Không thể lưu: Dữ liệu không hợp lệ");
-    }
+let foodIndex = foodList.findIndex(item => item.id == selectedId);
+foodList[foodIndex] = updatedFood;
+localStorage.setItem("foodList", JSON.stringify(foodList));
+window.location.href = "/food/food.html";
 }

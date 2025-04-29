@@ -1,0 +1,112 @@
+/* Updated modal input styles to match addfood.html */
+.modal-body input {
+  background-color: #a5a5a5;
+  padding: 20px 10px;
+  border-radius: 3px;
+  font-size: 20px;
+  color: #333;
+  border: none;
+  width: 80%;
+}
+
+.modal-body .label {
+  font-size: 20px;
+  color: #777;
+  padding: 10px 20px;
+}
+
+.modal-body .grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-body .grid-item {
+  display: flex;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  gap: 30px;
+  border-radius: 5px;
+}
+
+.modal-body .value-with-unit {
+  display: flex;
+  align-items: center;
+}
+
+.modal-body .unit {
+  margin-left: 5px;
+  color: #777;
+  font-size: 20px;
+  width: 50px;
+  padding: 0px 5px;
+}
+
+.modal-body .nutrition-header {
+  text-align: center;
+  color: #00c38e;
+  padding: 8px;
+  font-size: 20px;
+  margin: 20px 0 10px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-body .section-header {
+  text-align: center;
+  font-size: 30px;
+  color: #777;
+  margin: 25px 0 15px 0;
+  font-weight: normal;
+}
+
+.modal-body .nutrient-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.modal-body .nutrient-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: rgb(221, 221, 221);
+  border-radius: 5px;
+}
+
+/* Updated CSS for modal to ensure Micronutrients section has 3 equal columns */
+.modal-body .micronutrient-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Align label and input horizontally in one row */
+.modal-body .micronutrient-grid .nutrient-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgb(221, 221, 221);
+  border-radius: 5px;
+  text-align: left;
+  height: auto;
+}
+
+.modal-body .micronutrient-grid .nutrient-item .label {
+  flex: 1;
+  font-size: 16px;
+  color: #555;
+  margin-right: 10px;
+}
+
+.modal-body .micronutrient-grid .nutrient-item input {
+  flex: 2;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}

@@ -27,5 +27,5 @@ function addfood() {
     };
     foodList.push(newFood)
     updateDataFood(foodList)
-    window.location.href="/food/food.html"
+    
 }
