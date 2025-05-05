@@ -1,67 +1,137 @@
-function nameUserLogin(){
+function nameUserLogin() {
   let userLogin = JSON.parse(localStorage.getItem("userLogin") || sessionStorage.getItem("userLogin"));
-  let nameUserLogin=document.getElementById("nameUserLogin")
+  let nameUserLogin = document.getElementById("nameUserLogin");
   let currentUser = userList.find(user => user.email === userLogin.email);
-  nameUserLogin.innerText=`Hello, ${currentUser.name} !`
-  nameUserLogin.style.fontSize="20px"
+  nameUserLogin.innerText = `Hello, ${currentUser.name} !`;
+  nameUserLogin.style.fontSize = "20px";
 }
-nameUserLogin()
+nameUserLogin();
 
+function nextPage(id) {
+  localStorage.setItem("idRecipes", JSON.stringify(id));
+  window.location.href = "/recipesdetail/recipesdetail.html";
+}
 
 let curPageFood = 1;
-const maxItemFood = 5;
-let currentFoodList = JSON.parse(localStorage.getItem("foodList")) || [];
+const maxItemFood = 2;
+let currentFoodList = JSON.parse(localStorage.getItem("recipe")) || [];
 
 function renderFoodFromList(list) {
-  let dataFoods = document.getElementById("dataRecipes");
-  let startIndex = (curPageFood - 1) * maxItemFood;
-  let endIndex = curPageFood * maxItemFood;
-  let temp = list.slice(startIndex, endIndex);
-  let data = ``;
+  const dataFoods = document.getElementById("dataRecipes");
+  const startIndex = (curPageFood - 1) * maxItemFood;
+  const endIndex   = curPageFood * maxItemFood;
+  const temp       = list.slice(startIndex, endIndex);
+  let data          = "";
 
   for (let i = 0; i < temp.length; i++) {
+    let ingredients = temp[i].ingredients || [];
+
+    let totalEnergy = 0;
+    for (let j = 0; j < ingredients.length; j++) {
+      totalEnergy += (ingredients[j].macronutrients?.energy || 0);
+    }
+
+    let totalFat = 0;
+    for (let j = 0; j < ingredients.length; j++) {
+      totalFat += (ingredients[j].macronutrients?.fat || 0);
+    }
+    let totalCarbohydrate = 0;
+    for (let j = 0; j < ingredients.length; j++) {
+      totalCarbohydrate += (ingredients[j].macronutrients?.carbohydrate || 0);
+    }
+    let totalProtein = 0;
+    for (let j = 0; j < ingredients.length; j++) {
+      totalProtein += (ingredients[j].macronutrients?.protein || 0);
+    }
+    let totalQuantity = 0;
+    for (let j = 0; j < ingredients.length; j++) {
+      totalQuantity += (ingredients[j].macronutrients?.quantity || 0);
+    }
+
     data += `
+      
+
+
       <div onclick="nextPage(${temp[i].id})"
-          style="width: calc(50% - 15px); height: auto; padding: 30px 0; border: 1px solid; margin-top: 30px; border-radius: 10px;">
-          <div style="width: 100%; display: flex; padding-left: 20px;">
-            <div style="height: 50px; width: 160px; box-shadow: 0px 2px 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: orange; margin-right: 40px; font-size: 15px;">
-              <i class="fa-solid fa-people-group" style="margin-right: 5px;"></i>
-              <div>Community Recipes</div>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1; position: relative;">
-              <h5 style="margin: 0;">${temp[i].name}</h5>
-              <div style="color: gray; padding-left: 30px;">${temp[i].source}</div>
-              <div style="display: flex; align-items: center; gap: 5px;">
-                <i style="color: chocolate;" class="fa-solid fa-tag"></i>
-                <span>${temp[i].category}</span>
-              </div>
-              <div style="position: absolute; right: 30px; top: 30px; display: flex; align-items: center; gap: 5px;">
-                <button onclick="likeFood(${temp[i].id})" style="border: 1px solid #ddd; background: white; border-radius: 5px; padding: 5px 10px; display: flex; align-items: center;">
-                  <i class="fa-regular fa-heart" style="color: gray;"></i>
-                  <span style="margin-left: 5px; color: gray;">${temp[i].like}</span>
-                </button>
-              </div>
-              <hr style="margin: 10px 0;">
-              <div style="display: flex; justify-content: space-around; text-align: center; font-size: 15px">
-                <div><small>by</small><br><strong>100g</strong></div>
-                <div><small>Energy</small><br><strong>${temp[i].macronutrients.energy} kcal</strong></div>
-                <div><small>Fat</small><br><strong>${temp[i].macronutrients.fat} g</strong></div>
-                <div><small>Carbohydrate</small><br><strong>${temp[i].macronutrients.carbohydrate} g</strong></div>
-                <div><small>Protein</small><br><strong>${temp[i].macronutrients.protein} g</strong></div>
-              </div>
-            </div>
-          </div>
+  style=" 
+    width: calc(50% - 15px); 
+    height: auto; 
+    padding: 30px 0; 
+    border: 1px solid; 
+    margin-top: 30px; 
+    border-radius: 10px;
+    background: url('${temp[i].coverSrc}') center/cover no-repeat;
+    position: relative;
+    color: white;
+    overflow: hidden;
+  ">
+
+  <!-- Lớp phủ tối để chữ dễ đọc -->
+  <div style="
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.4); 
+    border-radius: 10px;
+    z-index: 1;">
+  </div>
+
+  <!-- Nội dung chính -->
+  <div  style="position: relative; z-index: 2; width: 100%; display: flex; padding-left: 20px;">
+    <div 
+      style="height: 50px; width: 160px; box-shadow: 0px 2px 10px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: orange; margin-right: 40px; font-size: 15px;">
+      <i class="fa-solid fa-people-group" style="margin-right: 5px;"></i>
+      <div>Community Recipes</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1; position: relative;">
+      <h5 style="margin: 0;">${temp[i].name}</h5>
+      <div style="color: #ddd; padding-left: 30px;">${temp[i].author}</div>
+      <div style="display: flex; align-items: center; gap: 5px;">
+        <i style="color: chocolate;" class="fa-solid fa-tag"></i>
+        <span>${temp[i].category}</span>
       </div>
+      <div
+        style=" position: absolute; right: 30px;  top: 30px; display: flex; align-items: center; gap: 5px;">
+        <div onclick="likeFood(${i+(curPageFood - 1) * maxItemFood})"
+                style="background: transparent; border: 1px solid #ddd; border-radius: 5px; padding: 5px 10px; display: flex; align-items: center;">
+          <i class="fa-regular fa-heart" style="color: white;"></i>
+          <span style="margin-left: 5px; color: white;">${temp[i].like}</span>
+        </div>
+      </div>
+      <hr style="margin: 10px 0; border-color: rgba(254, 254, 254, 0.3); ">
+      <div style="display: flex; justify-content: space-around; text-align: center; font-size: 15px">
+        <div>
+          <small>by</small><br><strong>${temp[i].finalWeight}</strong>
+        </div>
+        <div>
+          <small>Energy</small><br><strong>${totalEnergy} kcal</strong>
+        </div>
+        <div>
+          <small>Fat</small><br><strong>${totalFat} g</strong>
+        </div>
+        <div>
+          <small>Carbohydrate</small><br><strong>${totalCarbohydrate} g</strong>
+        </div>
+        <div>
+          <small>Protein</small><br><strong>${totalProtein} g</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     `;
   }
 
   data += `
-    <div id="homePagin" style="width: 90%; margin-top: 50px; display: flex; justify-content: flex-end; margin-right: 100px; margin-bottom: 30px;">
-    </div>
+    <div id="homePagin" style="width:90%; margin:50px 0 30px; display:flex; justify-content:flex-end;"></div>
   `;
 
   dataFoods.innerHTML = data;
 }
+
+
 
 function renderFoodPagin(list) {
   let pagin = document.getElementById("homePagin");
@@ -106,7 +176,7 @@ function setPageFood(index) {
 
 function search() {
   let keyword = document.getElementById("search").value.toLowerCase();
-  let foodList = JSON.parse(localStorage.getItem("foodList"));
+  let foodList = JSON.parse(localStorage.getItem("recipe")) || [];
   currentFoodList = foodList.filter(food =>
     food.name.toLowerCase().includes(keyword)
   );
@@ -117,20 +187,25 @@ function search() {
 
 function sortByNutrient() {
   let selectedNutrient = document.getElementById("sortNutrient").value;
-  let foodList = JSON.parse(localStorage.getItem("foodList")) || [];
-  currentFoodList = foodList.sort((a, b) => {
-    let start = a.macronutrients[selectedNutrient] || 0;
-    let end = b.macronutrients[selectedNutrient] || 0;
-    return end - start;
-  });
-  curPageFood = 1;
-  renderFoodFromList(currentFoodList);
-  renderFoodPagin(currentFoodList);
+  let recipeList = JSON.parse(localStorage.getItem("recipe"));
+  recipeList.sort((a, b) =>{
+    let aTotal = 0;
+    for (let i = 0; i < a.ingredients.length; i++) {
+        aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    let bTotal = 0;
+    for (let i = 0; i < b.ingredients.length; i++) {
+        bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    return bTotal - aTotal;
+});
+  renderFoodFromList(recipeList);
+  renderFoodPagin(recipeList);
 }
 
 function searchCategory() {
   let keyword = document.getElementById("category").value.toLowerCase();
-  let foodList = JSON.parse(localStorage.getItem("foodList")) || [];
+  let foodList = JSON.parse(localStorage.getItem("recipe")) || [];
   currentFoodList = foodList.filter(food =>
     food.category.toLowerCase().includes(keyword)
   );
@@ -138,15 +213,11 @@ function searchCategory() {
   renderFoodFromList(currentFoodList);
   renderFoodPagin(currentFoodList);
 }
+
 renderFoodFromList(currentFoodList);
 renderFoodPagin(currentFoodList);
 
-
-
-
-
 let isCollapsed = false;
-
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const content = document.getElementById('content');

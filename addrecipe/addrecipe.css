@@ -1,0 +1,44 @@
+.ingredient-row .add-icon {
+    display: none !important;
+  }
+
+  .ingredient-row:hover .add-icon {
+    display: flex !important;
+  }
+
+  #new-category-button {
+    display: flex;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 5px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .nav-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  
+  .nav-item i {
+    margin-right: 10px;
+  }
+  
+  .nav-item.active {
+    background-color: rgb(26, 39, 51);
+  }
+  
+  .nav-item.active i {
+    color: white;
+  }
+  

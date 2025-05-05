@@ -5,7 +5,7 @@ function nameUserLogin() {
   nameUserLogin.innerText = `Hello, ${currentUser.name} !`
   nameUserLogin.style.fontSize = "20px"
 }
-// nameUserLogin()
+nameUserLogin()
 
 function searchFood() {
   let keyword = document.getElementById("search").value.toLowerCase();
@@ -17,6 +17,15 @@ function searchFood() {
   renderFoodPagin(foodList)
 }
 
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', () => {
+    searchFood();
+});
+
+const categoryInput = document.getElementById('category');
+categoryInput.addEventListener('input', () => {
+    searchCategory();
+});
 
 let curPageFood = 1;
 const maxItemFood = 5;
@@ -44,8 +53,8 @@ function renderFoodFromList(list) {
   }
 
   data += `
-  <div data-bs-toggle="modal" data-bs-target="#addFoodModal" onclick="clearFoodModal()" style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px; background: white">
-      <div style="font-size: 25px;">
+  <div data-bs-toggle="modal" data-bs-target="#addFoodModal" onclick="clearFoodModal()" style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px; background: white;cursor: pointer">
+      <div style="font-size: 25px; ">
           <i class="fa-regular fa-square-plus"></i>
           Create food
       </div>
@@ -53,7 +62,7 @@ function renderFoodFromList(list) {
   `;
 
   dataFoods.innerHTML = data;
-  renderFoodPagin(list); // Ensure pagination is rendered after the food list
+  renderFoodPagin(list);
 }
 renderFoodFromList(JSON.parse(localStorage.getItem("foodList")));
 
@@ -149,16 +158,12 @@ function changeFood(id) {
     const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
     const food = foodList.find(item => item.id === id);
 
-    if (!food) {
-        alert("Food not found!");
-        return;
-    }
-
-    // Populate modal fields with food data
+   
     document.querySelector('input[name="name"]').value = food.name || "";
     document.querySelector('input[name="source"]').value = food.source || "";
+
     document.querySelector('input[name="category"]').value = food.category || "";
-    document.querySelector('input[name="quantity"]').value = food.quantity || 0;
+    document.querySelector('input[name="quantity"]').value = parseFloat(food.quantity) || "";
 
     document.querySelector('input[name="energy"]').value = food.macronutrients.energy || 0;
     document.querySelector('input[name="carbohydrate"]').value = food.macronutrients.carbohydrate || 0;
@@ -204,6 +209,33 @@ function changeFood(id) {
     document.querySelector('input[name="fattyAcidsPolyunsaturated"]').value = micronutrients.fattyAcidsPolyunsaturated || 0;
     document.querySelector('input[name="chloride"]').value = micronutrients.chloride || 0;
 
+    const saveButton = document.querySelector('#addFoodModal .btn-success');
+    saveButton.onclick = () => {
+        const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
+        const foodIndex = foodList.findIndex(item => item.id === id);
+
+        if (foodIndex !== -1) {
+            foodList[foodIndex].name = document.querySelector('input[name="name"]').value;
+            foodList[foodIndex].source = document.querySelector('input[name="source"]').value;
+            foodList[foodIndex].category = document.querySelector('input[name="category"]').value;
+            foodList[foodIndex].quantity = document.querySelector('input[name="quantity"]').value + 'g';
+            foodList[foodIndex].macronutrients.energy = parseFloat(document.querySelector('input[name="energy"]').value) || 0;
+            foodList[foodIndex].macronutrients.carbohydrate = parseFloat(document.querySelector('input[name="carbohydrate"]').value) || 0;
+            foodList[foodIndex].macronutrients.fat = parseFloat(document.querySelector('input[name="fat"]').value) || 0;
+            foodList[foodIndex].macronutrients.protein = parseFloat(document.querySelector('input[name="protein"]').value) || 0;
+
+            const micronutrientInputs = document.querySelectorAll('.micronutrient-grid input');
+            micronutrientInputs.forEach(input => {
+                foodList[foodIndex].micronutrients[input.name] = parseFloat(input.value) || null;
+            });
+
+            localStorage.setItem("foodList", JSON.stringify(foodList));
+            renderFoodFromList(foodList);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addFoodModal'));
+            modal.hide();
+        }
+    };
+
     // Open the modal
     const modal = new bootstrap.Modal(document.getElementById('addFoodModal'));
     modal.show();
@@ -227,6 +259,30 @@ function clearFoodModal() {
 
 // Add a function to save new food to localStorage
 function saveFood() {
+    const nameInput = document.querySelector('input[name="name"]');
+    const sourceInput = document.querySelector('input[name="source"]');
+    const categoryInput = document.querySelector('input[name="category"]');
+    const quantityInput = document.querySelector('input[name="quantity"]');
+
+    if (!nameInput.value.trim()) {
+        alert('mời bạn nhập tên thực phẩm');
+        return;
+    }
+
+    if (!sourceInput.value.trim()) {
+        alert('mời bạn nhập nguồn thực phẩm');
+        return;
+    }
+
+    if (!categoryInput.value.trim()) {
+        alert('mời bạn nhập danh mục thực phẩm');
+        return;
+    }
+    if (!quantityInput.value.trim()) {
+      alert('mời bạn nhập trọng lượng thực phẩm');
+      return;
+  }
+
     const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
 
     const newFood = {
@@ -241,16 +297,51 @@ function saveFood() {
             fat: parseFloat(document.querySelector('input[name="fat"]').value) || 0,
             protein: parseFloat(document.querySelector('input[name="protein"]').value) || 0
         },
-        micronutrients: Array.from(document.querySelectorAll('.micronutrient-grid input')).reduce((acc, input) => {
-            acc[input.name] = parseFloat(input.value) || 0;
-            return acc;
-        }, {})
+        micronutrients: {
+          cholesterol: parseFloat(document.querySelector('input[name="cholesterol"]').value) || 0,
+          fiber: parseFloat(document.querySelector('input[name="fiber"]').value) || 0,
+          sodium: parseFloat(document.querySelector('input[name="sodium"]').value) || 0,
+          water: parseFloat(document.querySelector('input[name="water"]').value) || 0,
+          vitaminA: parseFloat(document.querySelector('input[name="vitaminA"]').value) || 0,
+          vitaminB6: parseFloat(document.querySelector('input[name="vitaminB6"]').value) || 0,
+          vitaminB12: parseFloat(document.querySelector('input[name="vitaminB12"]').value) || 0,
+          vitaminC: parseFloat(document.querySelector('input[name="vitaminC"]').value) || 0,
+          vitaminD: parseFloat(document.querySelector('input[name="vitaminD"]').value) || 0,
+          vitaminE: parseFloat(document.querySelector('input[name="vitaminE"]').value) || 0,
+          vitaminK: parseFloat(document.querySelector('input[name="vitaminK"]').value) || 0,
+          starch: parseFloat(document.querySelector('input[name="starch"]').value) || 0,
+          lactose: parseFloat(document.querySelector('input[name="lactose"]').value) || 0,
+          alcohol: parseFloat(document.querySelector('input[name="alcohol"]').value) || 0,
+          caffeine: parseFloat(document.querySelector('input[name="caffeine"]').value) || 0,
+          sugars: parseFloat(document.querySelector('input[name="sugars"]').value) || 0,
+          calcium: parseFloat(document.querySelector('input[name="calcium"]').value) || 0,
+          iron: parseFloat(document.querySelector('input[name="iron"]').value) || 0,
+          magnesium: parseFloat(document.querySelector('input[name="magnesium"]').value) || 0,
+          phosphorus: parseFloat(document.querySelector('input[name="phosphorus"]').value) || 0,
+          potassium: parseFloat(document.querySelector('input[name="potassium"]').value) || 0,
+          zinc: parseFloat(document.querySelector('input[name="zinc"]').value) || 0,
+          copper: parseFloat(document.querySelector('input[name="copper"]').value) || 0,
+          fluoride: parseFloat(document.querySelector('input[name="fluoride"]').value) || 0,
+          manganese: parseFloat(document.querySelector('input[name="manganese"]').value) || 0,
+          selenium: parseFloat(document.querySelector('input[name="selenium"]').value) || 0,
+          thiamin: parseFloat(document.querySelector('input[name="thiamin"]').value) || 0,
+          riboflavin: parseFloat(document.querySelector('input[name="riboflavin"]').value) || 0,
+          niacin: parseFloat(document.querySelector('input[name="niacin"]').value) || 0,
+          pantothenicAcid: parseFloat(document.querySelector('input[name="pantothenicAcid"]').value) || 0,
+          folateTotal: parseFloat(document.querySelector('input[name="folateTotal"]').value) || 0,
+          folicAcid: parseFloat(document.querySelector('input[name="folicAcid"]').value) || 0,
+          fattyAcidsTrans: parseFloat(document.querySelector('input[name="fattyAcidsTrans"]').value) || 0,
+          fattyAcidsSaturated: parseFloat(document.querySelector('input[name="fattyAcidsSaturated"]').value) || 0,
+          fattyAcidsMonounsaturated: parseFloat(document.querySelector('input[name="fattyAcidsMonounsaturated"]').value) || 0,
+          fattyAcidsPolyunsaturated: parseFloat(document.querySelector('input[name="fattyAcidsPolyunsaturated"]').value) || 0,
+          chloride: parseFloat(document.querySelector('input[name="chloride"]').value) || 0
+      }
+      
     };
 
     foodList.push(newFood);
     localStorage.setItem("foodList", JSON.stringify(foodList));
-
-    // Close the modal and refresh the food list
+    
     const modal = bootstrap.Modal.getInstance(document.getElementById('addFoodModal'));
     modal.hide();
     renderFoodFromList(foodList);

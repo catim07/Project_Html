@@ -1,9 +1,47 @@
-
 function changeFood(id) {
     localStorage.setItem("selectedFoodId", id);
-    window.location.href = "/ingredient/ingredient.html";
+    openIngredientModal('change', id);
 }
 
+// Updated modal logic for change food and create food
+function openIngredientModal(formType, id) {
+    const modalTitle = formType === 'change' ? 'Change Food' : 'Create Food';
+    const modalButton = formType === 'change' ? 'Save Changes' : 'Add Food';
+
+    document.querySelector('.modal-title').innerText = modalTitle;
+    document.querySelector('.modal-save-button').innerText = modalButton;
+
+    if (formType === 'change') {
+        const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
+        const food = foodList.find(item => item.id === id);
+
+        if (!food) {
+            alert("Food not found!");
+            return;
+        }
+
+        document.querySelector('input[name="name"]').value = food.name || "";
+        document.querySelector('input[name="source"]').value = food.source || "";
+        document.querySelector('input[name="category"]').value = food.category || "";
+        document.querySelector('input[name="quantity"]').value = food.quantity || 0;
+        document.querySelector('input[name="energy"]').value = food.macronutrients.energy || 0;
+        document.querySelector('input[name="carbohydrate"]').value = food.macronutrients.carbohydrate || 0;
+        document.querySelector('input[name="fat"]').value = food.macronutrients.fat || 0;
+        document.querySelector('input[name="protein"]').value = food.macronutrients.protein || 0;
+    } else {
+        document.querySelector('input[name="name"]').value = "";
+        document.querySelector('input[name="source"]').value = "";
+        document.querySelector('input[name="category"]').value = "";
+        document.querySelector('input[name="quantity"]').value = 100;
+        document.querySelector('input[name="energy"]').value = "";
+        document.querySelector('input[name="carbohydrate"]').value = "";
+        document.querySelector('input[name="fat"]').value = "";
+        document.querySelector('input[name="protein"]').value = "";
+    }
+
+    const modal = new bootstrap.Modal(document.getElementById('ingredientModal'));
+    modal.show();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
@@ -123,8 +161,8 @@ function saveFood() {
         }
     };
 
-let foodIndex = foodList.findIndex(item => item.id == selectedId);
-foodList[foodIndex] = updatedFood;
-localStorage.setItem("foodList", JSON.stringify(foodList));
-window.location.href = "/food/food.html";
+    let foodIndex = foodList.findIndex(item => item.id == selectedId);
+    foodList[foodIndex] = updatedFood;
+    localStorage.setItem("foodList", JSON.stringify(foodList));
+    window.location.href = "/food/food.html";
 }

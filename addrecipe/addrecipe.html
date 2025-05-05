@@ -7,6 +7,7 @@
     <title>Recipe detail</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="./addrecipe.css">
     <script>
         if (!localStorage.getItem("userLogin")) {
             if (!sessionStorage.getItem("userLogin")) {
@@ -20,37 +21,39 @@
 
 <body>
     <div style="height: 100vh; width: 100vw; display: flex;position: fixed; top: 0; left: 0;">
-        <div
-            style="width: 20%; height: 100vh; display: flex; flex-direction: column; background-color: rgb(10, 8, 10); justify-content: space-between;">
-            <div
-                style="display: flex; height: 50%; flex-direction: column; justify-content: space-evenly; margin-left: 30px;">
-                <div style="display: flex; align-items: center; color: aquamarine;">
-                    <img src="../bd9a9a7d62b2b3b87b6c262d3ea21469fddf65f8.png" alt="" style="width: 200px;">
-                </div>
-                <p onclick="window.location.href=`/index.html`"
-                    style="cursor: pointer; color: rgb(255, 255, 255); font-size: 20px;"><i
-                        class="fa-solid fa-house"></i> Homepage</p>
-                <p onclick="window.location.href=`/food/food.html`"
-                    style="color: rgb(255, 255, 255);font-size: 20px;cursor: pointer ;"><i
-                        class="fa-solid fa-bowl-food"></i> Foods</p>
-                <p onclick="window.location.href=`/recipes/recipes.html`"
-                    style="color: rgb(255, 255, 255);font-size: 20px; cursor: pointer;"><i
-                        class="fa-solid fa-pen-to-square"></i> Closed Boards
-                </p>
+        <div id="sidebar" style="width: 20%; height: 100vh; display: flex; flex-direction: column; background-color: #293846; justify-content: space-between; transition: width 0.3s;">
+  
+            <div style="display: flex; height: 50%; flex-direction: column; justify-content: space-evenly;">
+              <div style="display: flex;align-items: center;">
+                <img id="logo" src="../bd9a9a7d62b2b3b87b6c262d3ea21469fddf65f8.png" alt="logo" style="width: 70%; transition: opacity 0.3s; margin-left: 30px;">
+              </div>
+          
+              <p class="nav-item" data-link="index" onclick="window.location.href='/index.html'">
+                <i class="fa-solid fa-house"></i> <span class="nav-text">Homepage</span>
+              </p>
+          
+              <p class="nav-item" data-link="food" onclick="window.location.href='/food/food.html'">
+                <i class="fa-solid fa-bowl-food"></i> <span class="nav-text">Foods</span>
+              </p>
+          
+              <p class="nav-item" data-link="recipes" onclick="window.location.href='/recipes/recipes.html'">
+                <i class="fa-solid fa-pen-to-square"></i> <span class="nav-text">Recipes</span>
+              </p>
             </div>
-            <div
-                style="display: flex; height: 10%; flex-direction: column; justify-content: space-evenly;background-color: #12896D; padding-left: 30px;">
-                <p onclick="logout()" style="color: rgb(255, 255, 255);font-size: 20px;"><i
-                        class="fa-solid fa-right-from-bracket"></i> Sign out</p>
+          
+            <div style="display: flex; height: 10%; flex-direction: column; justify-content: space-evenly; background-color: #12896D; padding-left: 30px;">
+              <p onclick="logout()" class="nav-item" style="color: rgb(255, 255, 255); font-size: 20px; cursor: pointer;">
+                <i class="fa-solid fa-right-from-bracket"></i> <span class="nav-text">Sign out</span>
+              </p>
             </div>
-        </div>
+          </div>
 
         <div style="width: 80%;overflow-y: auto;">
             <div style=" width: 100%; display: flex; flex-direction: column; padding: 20px;">
                 <div style=" width: 100%; display: flex; justify-content:space-between;">
                     <div
-                        style="width: 50px; height: 50px; background-color: rgb(30, 214, 153); display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white;">
-                        <h2><i class="fa-solid fa-list"></i></h2>
+                        style="width: 50px; height: 50px; background-color: #1AB394; display: flex; align-items: center; justify-content: center; border-radius: 5px; color: white;">
+                        <h2><i class="fa-solid fa-bars"></i></h2>
 
                     </div>
                     <div id="nameUserLogin"></div>
@@ -61,444 +64,565 @@
                 <h2>Recipes</h2>
                 <h4>Create, check and update recipes</h4>
             </div>
-            <div style="margin: 30px; display: flex; gap: 20px; width: calc(100% - 60px);">
-                <div style="display: flex; flex-direction: column; width: 30%;">
-                    <div
-                        style="width: 100%; height: 300px; border-radius: 10px; box-shadow: 0px 2px 10px; display: flex; flex-direction: column; position: relative;">
-
-                        <div style="display: flex; justify-content: center; margin-top: 20px; gap: 50px;">
-                            <div
-                                style="display: flex; width: 50%; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
-                                <div style="color: rgb(87, 87, 245);">
-                                    <i class="fa-solid fa-pencil"></i> My recipes
-                                </div>
-                            </div>
-                            <div
-                                style="display: flex; width: 70px; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
-                                <div><i class="fa-regular fa-heart"></i> 37</div>
-                            </div>
-                        </div>
+            <form onsubmit="getValueFromInput(event)" style="width: 100%;" action="">
+                <div style="margin: 30px; display: flex; gap: 20px; width: calc(100% - 60px);">
+                    <div style="display: flex; flex-direction: column; width: 30%;">
                         <div
-                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); cursor: pointer;">
-                            <div
-                                style="display: flex; width: 150px; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
-                                <div>
-                                    <i style="color: orange;" class="fa-solid fa-pencil"></i> Upload image
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-top: auto;">
-                            <div
-                                style="display: flex; width: 150px; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center; margin-left: 40px; margin-bottom: 30px; font-size: 15px; cursor: pointer;">
-                                <div>
-                                    <i class="fa-solid fa-tag" style="color: rgb(212, 139, 4);"></i> New category
-                                </div>
-                            </div>
-                        </div>
+                            style="width: 100%; height: 300px; border-radius: 10px; box-shadow: 0px 2px 10px; display: flex; flex-direction: column; position: relative;">
 
-                    </div>
-                </div>
-
-
-                <div style="width: 70%; display: flex; flex-direction: column; gap: 20px;">
-
-
-                    <div style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0px 2px 10px; display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; flex-direction: column; padding: 20px;">
-                            <div>
-                                <h2>Publish recipe</h2>
-                                Publish your recipe on your wedsite or share it with the Nutrum commutity
-                            </div>
-                        </div>
-                        <div
-                                style="display: flex; width: 100px; height: 50px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center; margin-left: 40px; margin-bottom: 30px; font-size: 15px; cursor: pointer;background-color: #1AB394; margin-top: 20px; margin-right: 30px;">
-                                <div style="color: white;">
-                                     Publish
-                                </div>
-                            </div>
-                    </div>
-
-
-
-                    <div style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0px 2px 10px;">
-                        <div style="display: flex; flex-direction: column; padding: 20px;">
-                          <div>
-                            <h2>Basic information</h2>
-                            Check and edit recipe's basic information
-                          </div>
-                          <br>
-                          <div style="display: flex; flex-direction: column; gap: 10px;">
-                            
-                            <!-- Name -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Name
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs">
-                              </div>
-                            </div>
-                      
-                            <!-- Description -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Description
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <textarea style="width: 100%; border: none; outline: none; resize: vertical;">Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs</textarea>
-                              </div>
-                            </div>
-                      
-                            <!-- Author -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Author
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted cauliflower">
-                              </div>
-                            </div>
-                      
-                            <!-- Total time -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Total time
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted cauliflower salad dvsvdvsvdvdvvdvsdvsdvdvdsvsdsvdssdcs">
-                              </div>
-                            </div>
-                      
-                            <!-- Preparation time -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Preparation time
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted c">
-                              </div>
-                            </div>
-                      
-                            <!-- Final weight -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Final weight
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted cauliflower s">
-                              </div>
-                            </div>
-                      
-                            <!-- Portions -->
-                            <div style="display: flex; height: auto; width: 100%;">
-                              <div style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
-                                Portions
-                              </div>
-                              <div style="width: 70%; border: 1px solid gray; padding: 10px;">
-                                <input type="text" style="width: 100%; border: none; outline: none;" value="Turmeric Roasted c">
-                              </div>
-                            </div>
-                      
-                          </div>
-                        </div>
-                      </div>
-                      
-                </div>
-            </div>
-
-
-            <div style="width: calc(100% - 60px); display: flex; flex-direction: column; margin: 30px;">
-                <div style="padding: 20px; background-color: #1AB394; color: white; border-radius: 10px;">
-                    <h2>Creation</h2>
-                    <h4>Create the recipe and choose the ingredients</h4>
-                </div>
-                <div style="width: 100%; height: auto; display: flex; margin-top: 20px; gap: 20px;">
-
-                    <div style="width: 60%; display: flex; flex-direction: column; gap: 20px;">
-                        <div style="width: 100%; display: flex; flex-direction: column; ">
-                            <div
-                                style="display: flex; flex-direction: column; gap: 10px;border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
-                                <h4>ingredients</h4>
-                                Search and add ingredients to recipe
-                                <div style="display: flex; width: 100%;">
-                                    <div style="display: flex; flex-direction: column;width: 90%;border: 1px solid; padding: 5px; font-size: 10px;">
-                                        1 serving of babyfood, water, bottled, GERBER, without added fluoride (113 g)
-                                    </div>
-                                    <div style="display: flex;">
-a
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div style="width: 100%; display: flex; flex-direction: column; ">
-                            <div
-                                style="display: flex; flex-direction: column;border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
-                                <h4>Cooking method</h4>
-                                Give instructions to prepare this recipe
-                                <div style="gap: 20px;">
-                                    <div style="margin: 20px 0px; display: flex; height: auto;">
-                                        <div
-                                            style="background-color: #FAFAFB; width: 10%; height: auto; display: flex; align-items: center; justify-content: center; border: 1px solid rgb(214, 214, 214);">
-                                            1
-                                        </div>
-                                        <div
-                                            style="width: 90%; padding: 10px; border: 1px solid rgb(214, 214, 214); border-left: none;">
-                                            STEP 1 Heat the oven to 200C/fan 180C/gas 6. Put the cauliflower in an
-                                            ovenproof
-                                            dish or tin, add the turmeric,
-                                            some seasoning and 2 tbsp oil, and toss together. Roast for 20-25 minutes
-                                            until
-                                            tender. Tip onto a plate and cool.
-                                            STEP 2 Meanwhile boil the rice in salted water until tender, adding the
-                                            edamame
-                                            for the last minute of cooking,
-                                            then drain well. Leave to cool, then tip into a large bowl. Add the roasted
-                                            cauliflower, lemon juice, cucumber and
-                                            some seasoning, and toss together. Add the herbs and toss again. Add mint
-                                            for
-                                            extra flavor. STEP 3 Whisk
-                                            together the dressing ingredients. Divide the cauliflower and rice between
-                                            plates, scatter over the cashews and
-                                            drizzle with the dressing.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div style="width: 40%; display: flex; flex-direction: column; gap: 20px;">
-                        <div style="width: 100%; display: flex; flex-direction: column;">
-                            <div
-                                style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
-                                <h4>Global analysis per portion</h4>
-                                <span style="color: #888888;">Energy, macronutrients and fiber distribution</span>
-                                <br>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div>Energy</div>
-                                    <div>351 kcal</div>
-                                </div>
-                                <hr>
-                                <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-                                    <div style="position: relative; width: 80px; height: 80px;">
-                                        <canvas id="fatChart"></canvas>
-                                        <div
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
-                                            16g</div>
-                                    </div>
-                                    <div style="position: relative; width: 80px; height: 80px;">
-                                        <canvas id="carbChart"></canvas>
-                                        <div
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
-                                            45g</div>
-                                    </div>
-                                    <div style="position: relative; width: 80px; height: 80px;">
-                                        <canvas id="proteinChart"></canvas>
-                                        <div
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
-                                            12g</div>
-                                    </div>
-                                    <div style="position: relative; width: 80px; height: 80px;">
-                                        <canvas id="fiberChart"></canvas>
-                                        <div
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
-                                            6g</div>
+                            <div style="display: flex; justify-content: center; margin-top: 20px; gap: 50px;">
+                                <div
+                                    style="display: flex; width: 50%; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
+                                    <div style="color: #2BA0CC">
+                                        <i class="fa-solid fa-pencil"></i> My recipes
                                     </div>
                                 </div>
                                 <div
-                                    style="display: flex; justify-content: space-around; margin-top: 10px; color: #666;">
-                                    <div>Fat</div>
-                                    <div>Carbohydrate</div>
-                                    <div>Protein</div>
-                                    <div>Fiber</div>
+                                    style="display: flex; width: 70px; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
+                                    <div><i class="fa-regular fa-heart"></i> 37</div>
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div style="width: 100%; display: flex; flex-direction: column;">
-                            <div
-                                style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
-                                <h4>Macronutrients per portion</h4>
-                                <span style="color: #888888;">Macronutrients distribution of the recipe</span>
-                                <br>
-                                <canvas id="myChart" width="400" height="400"></canvas>
-                            </div>
-                        </div>
-                        <div style="width: 100%; display: flex; flex-direction: column;">
-                            <div
-                                style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
-                                <h4>Macronutrients per portion</h4>
-                                <span style="color: #888888;">Macronutrients distribution of the recipe</span>
-                                <br>
-                                <div style="display: flex; flex-direction: column;">
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Sodium
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Vitamin A
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Vitamin B-6
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Vitamin B-12
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Vitamin C
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            vitaminD (D2+D3)
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            vitamin E
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            vitamin K
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            sugars
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            calcium
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            iron
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Magnesium
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            phosphorus
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            potassium
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Zinc
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Copper
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Fluoride
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Manganese
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Selenium
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Thiamin
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            Riboflavin
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            niacin
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div style="padding: 10px 0px; display: flex; justify-content: space-between;">
-                                        <div>
-                                            pantothenic acid
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-                                    <div
-                                        style="padding: 10px 0px; background-color: #FAFAFB;display: flex; justify-content: space-between;">
-                                        <div>
-                                            Folate, total
-                                        </div>
-                                        <div>1481mg</div>
-                                    </div>
-
+                            <div id="uploadWrapper"
+                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                <div id="uploadBtn" onclick="handleUploadClick()"
+                                    style="cursor: pointer; display: flex; width: 150px; height: 40px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center;">
+                                    <div><i style="color: orange;" class="fa-solid fa-pencil"></i> Upload image</div>
                                 </div>
+                                <input id="coverSrc" type="text" placeholder="Nhập URL ảnh và Enter"
+                                    style="display: none; width: 200px; padding: 6px; border-radius: 5px; border: 1px solid #ccc;" />
                             </div>
+
+
+
+
+                            <div style="margin-top: auto;">
+                                <div id="category-container">
+                                    <div id="new-category-button" onclick="showDropdown()">
+                                      <i class="fa-solid fa-tag" style="color: rgb(212, 139, 4);"></i> New category
+                                    </div>
+                                  
+                                    <input list="categories" id="category-input" name="category" placeholder="Thêm mới hoặc chọn từ dropdown" style="display: none;" />
+                                    <datalist id="categories" name="category">
+                                      <option value="Desserts">
+                                      <option value="Breakfast and snacks">
+                                      <option value="Appetizers and side dishes">
+                                      <option value="Soups">
+                                      <option value="Meat dishes">
+                                      <option value="Fish dishes">
+                                      <option value="Vegetarian dishes">
+                                    </datalist>
+                                  </div>
+                                  
+                            </div>
+
                         </div>
                     </div>
 
+
+                    <div style="width: 70%; display: flex; flex-direction: column; gap: 20px;">
+
+
+                        <div
+                            style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0px 2px 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="display: flex; flex-direction: column; padding: 20px;">
+                                <div>
+                                    <h2>Publish recipe</h2>
+                                    Publish your recipe on your wedsite or share it with the Nutrum commutity
+                                </div>
+                            </div>
+                            <button type="submit"
+                                style="display: flex; width: 100px; height: 50px; border-radius: 10px; box-shadow: 0px 1px 5px; justify-content: center; align-items: center; margin-left: 40px; margin-bottom: 30px; font-size: 15px; cursor: pointer; background-color: #1AB394; margin-top: 20px; margin-right: 30px; border: none;">
+                                <span style="color: white;">Publish</span>
+                            </button>
+
+                        </div>
+
+
+
+                        <div style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0px 2px 10px;">
+                            <div style="display: flex; flex-direction: column; padding: 20px;">
+                                <div>
+                                    <h2>Basic information</h2>
+                                    Check and edit recipe's basic information
+                                </div>
+                                <br>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                                    <!-- Name -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Name
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="recipeName" name="name" type="text"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Description
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <textarea id="description" name="description"
+                                                style="width: 100%; border: none; outline: none; resize: vertical;"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Author -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Author
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="author" name="author" type="text"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Total time -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Total time
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="totalTime" name="totalTime" type="text"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Preparation time -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Preparation time
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="preparationTime" name="preparationTime" type="text"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Final weight -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Final weight
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="finalWeight" name="finalWeight" type="number"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Portions -->
+                                    <div style="display: flex; height: auto; width: 100%;">
+                                        <div
+                                            style="width: 30%; background-color: rgb(236, 236, 236); padding: 10px; border: 1px solid gray; border-right: none; display: flex;align-items: center;">
+                                            Portions
+                                        </div>
+                                        <div style="width: 70%; border: 1px solid gray; padding: 10px;">
+                                            <input id="portions" name="number" type="number"
+                                                style="width: 100%; border: none; outline: none;">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
+
+
+                <div style="width: calc(100% - 60px); display: flex; flex-direction: column; margin: 30px;">
+                    <div style="padding: 20px; background-color: #1AB394; color: white; border-radius: 10px;">
+                        <h2>Creation</h2>
+                        <h4>Create the recipe and choose the ingredients</h4>
+                    </div>
+                    <div style="width: 100%; height: auto; display: flex; margin-top: 20px; gap: 20px;">
+
+                        <div style="width: 60%; display: flex; flex-direction: column; gap: 20px;">
+                            <div style="width: 100%; display: flex; flex-direction: column; ">
+                                <div
+                                    style="display: flex; flex-direction: column; gap: 10px;border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
+                                    <h4>ingredients</h4>
+                                    <span>Search and add ingredients to recipe</span>
+                                    <div id="renderFoodChoose" style="display: flex; flex-direction: column; gap: 10px;">
+                                        <!-- <div style="display: flex; width: 100%;">
+                                            <div
+                                                style="display: flex; flex-direction: column; width: 90%; padding: 5px; font-size: 10px; justify-content: space-between;">
+                                                <div style="border: 1px solid rgb(230, 227, 227); padding: 10px;">
+                                                    1 serving of babyfood, water, bottled, GERBER, without added fluoride
+                                                    (113 g)
+                                                </div>
+                                                <div
+                                                    style="border: 1px solid rgb(230, 227, 227); border-top: none; width: 100%; display: flex; height: 40px;">
+                                                    <div
+                                                        style="width: 10%; background-color: #FAFAFB; display: flex; align-items: center; justify-content: center; color: #1AB394;">
+                                                        <i class="fa-solid fa-plus"></i>
+                                                    </div>
+                                                    <input type="text" style="height: 100%; width: 100%; border: none;"
+                                                        placeholder="Add new food equivalent">
+                                                </div>
+                                            </div>
+                                            <div
+                                                style="display: flex; width: 10%; align-items: center; justify-content: center; background-color: #FAFAFB;">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </div>
+                                        </div> -->
+
+                                    </div>
+
+                                    <div style="display: flex; flex-direction: column;">
+                                        <div
+                                            style="border: 1px solid rgb(230, 227, 227); border-top: none; width: 100%; display: flex; height: 40px;">
+                                            <div
+                                                style="width: 10%; background-color: #FAFAFB; display: flex; align-items: center; justify-content: center; color: #1AB394;">
+                                                <i class="fa-solid fa-chevron-up"></i>
+                                            </div>
+                                            <input type="text" style="width: 100%; border: none;"
+                                                placeholder="Add new ingredient">
+                                        </div>
+                                        <div
+                                            style="width: 100%; background-color:#FAFAFB; display: flex; flex-direction: column; padding: 10px; gap: 10px;">
+                                            <div style="display: flex; gap: 20px;">
+                                                <input oninput="searchFood()" type="text" name="search" id="search"
+                                                    placeholder="Search food"
+                                                    style="width: calc(100% / 3);  border-radius: 10px;">
+                                                <div
+                                                    style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden; font-family: sans-serif;width: calc(100% / 3); ">
+                                                    <div
+                                                        style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
+                                                        <i class="fa-solid fa-arrow-up-short-wide"
+                                                            style="color: gray;"></i>
+                                                    </div>
+                                                    <select id="sortNutrient" oninput="sortByNutrient()"
+                                                        style="border: none; outline: none; padding: 8px 12px; color: gray; height: 100%;">
+                                                        <option value="">Sort by nutrient</option>
+                                                        <option value="energy">Energy</option>
+                                                        <option value="fat">Fat</option>
+                                                        <option value="carbohydrate">Carbohydrate</option>
+                                                        <option value="protein">Protein</option>
+                                                    </select>
+                                                </div>
+                                                <input oninput="searchCategory()" type="text" id="category"
+                                                    name="searchcategory" placeholder="category"
+                                                    style="width: calc(100% / 3);  border-radius: 10px;">
+                                            </div>
+                                            <div style="display: flex; flex-direction: column;">
+                                                <div style="width: 100%; display: flex; border: 1px solid #EEEEEE;">
+                                                    <div style="width: 60%; background-color: white; padding: 10px;">
+                                                        Nutritional Information
+                                                    </div>
+                                                    <div style="width: 40%; display: flex;">
+
+                                                        <div
+                                                            style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px; border: 1px solid #EEEEEE; border-top: none; border-bottom: none;">
+                                                            Energy
+                                                        </div>
+                                                        <div
+                                                            style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px; border: 1px solid #EEEEEE; border-top: none; border-bottom: none;">
+                                                            Fat
+                                                        </div>
+                                                        <div
+                                                            style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px; border: 1px solid #EEEEEE; border-top: none; border-bottom: none;">
+                                                            Caboh..
+                                                        </div>
+                                                        <div
+                                                            style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px; border: 1px solid #EEEEEE; border-top: none; border-bottom: none;">
+                                                            Protein
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div id="renderIngredient"
+                                                    style="display: flex; flex-direction: column;">
+                                                    <!-- <div
+                                                        style="width: 100%; display: flex; border: 1px solid #EEEEEE;  border-top: none;">
+                                                        <div
+                                                            style="width: 60%; background-color: white; padding: 10px; display: flex; flex-direction: column;">
+                                                            <div>
+                                                                Keto 90 Second Bread
+                                                            </div>
+                                                            <div style="font-size: 12px;">
+                                                                Community Recipes
+                                                            </div>
+                                                            <div
+                                                                style="width: 100%; display: flex; border: 1px solid #DDDDDD;">
+                                                                <div
+                                                                    style="width: 20%; border-right: 1px solid #DDDDDD; padding: 5px;">
+                                                                    1
+                                                                </div>
+                                                                <div
+                                                                    style="width: 60%;border-right: 1px solid #DDDDDD;padding: 5px;">
+                                                                    1
+                                                                </div>
+                                                                <div style="width: 20%;padding: 5px;">
+                                                                    1
+                                                                </div>
+    
+                                                            </div>
+                                                        </div>
+                                                        <div style="width: 40%; display: flex;">
+    
+                                                            <div
+                                                                style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px;;">
+                                                                Energy
+                                                            </div>
+                                                            <div
+                                                                style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px;;">
+                                                                Fat
+                                                            </div>
+                                                            <div
+                                                                style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px;;">
+                                                                Caboh..
+                                                            </div>
+                                                            <div
+                                                                style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px;;">
+                                                                Protein
+                                                            </div>
+                                                            <div
+                                                                style="display: flex; align-items: center; justify-content: center; width: calc(100% / 5); padding: 10px; font-size: 13px;background-color: #1AB394; color: white;">
+                                                                <i class="fa-solid fa-plus"></i>
+                                                            </div>
+    
+                                                        </div>
+    
+    
+                                                    </div> -->
+
+                                                </div>
+                                            </div>
+                                            <div id="renderPagin" style="width: 100%; ">
+                                                <!-- <nav aria-label="Page navigation example">
+                                                    <ul class="pagination d-flex justify-content-end">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav> -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div style="width: 100%; display: flex; flex-direction: column; ">
+                                <div
+                                    style="display: flex; flex-direction: column;border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
+                                    <h4>Cooking method</h4>
+                                    Give instructions to prepare this recipe
+                                    <div style="gap: 20px;">
+                                        <div style="margin: 20px 0px; display: flex; height: auto;">
+                                            <div
+                                                style="background-color: #FAFAFB; width: 10%; height: auto; display: flex; align-items: center; justify-content: center; border: 1px solid rgb(214, 214, 214);">
+                                                1
+                                            </div>
+                                            <input id="cookingMethods" name="cookingMethods" type="text"
+                                                style="width: 80%; padding: 10px; border: 1px solid rgb(214, 214, 214); border-left: none;"
+                                                placeholder="Add new cooking method">
+                                            <div
+                                                style="background-color: #FAFAFB; width: 10%; height: auto; display: flex; align-items: center; justify-content: center; border: 1px solid rgb(214, 214, 214); color: #1AB394; border-left: none;">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div style="width: 40%; display: flex; flex-direction: column; gap: 20px;">
+                            <div style="width: 100%; display: flex; flex-direction: column;">
+                                <div
+                                    style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
+                                    <h4>Global analysis per portion</h4>
+                                    <span style="color: #888888;">Energy, macronutrients and fiber distribution</span>
+                                    <br>
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div>Energy</div>
+                                        <div>351 kcal</div>
+                                    </div>
+                                    <hr>
+                                    <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                                        <div style="position: relative; width: 80px; height: 80px;">
+                                            <canvas id="fatChart"></canvas>
+                                            <div  id="fatValue"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
+                                                0g</div>
+                                        </div>
+                                        <div style="position: relative; width: 80px; height: 80px;">
+                                            <canvas id="carbChart"></canvas>
+                                            <div id="carbValue"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
+                                                0g</div>
+                                        </div>
+                                        <div style="position: relative; width: 80px; height: 80px;">
+                                            <canvas id="proteinChart"></canvas>
+                                            <div  id="proteinValue"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
+                                                0g</div>
+                                        </div>
+                                        <div style="position: relative; width: 80px; height: 80px;">
+                                            <canvas id="fiberChart"></canvas>
+                                            <div id="fiberValue"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: bold;">
+                                                0g</div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="display: flex; justify-content: space-around; margin-top: 10px; color: #666;">
+                                        <div>Fat</div>
+                                        <div>Carbohydrate</div>
+                                        <div>Protein</div>
+                                        <div>Fiber</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="width: 100%; display: flex; flex-direction: column;">
+                                <div
+                                    style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
+                                    <h4>Macronutrients per portion</h4>
+                                    <span style="color: #888888;">Macronutrients distribution of the recipe</span>
+                                    <br>
+                                    <canvas id="myChart" width="400" height="400"></canvas>
+                                </div>
+                            </div>
+                            <div style="width: 100%; display: flex; flex-direction: column;">
+                                <div
+                                    style="display: flex; flex-direction: column; border-radius: 10px; height: auto; box-shadow: 0px 2px 6px; padding: 20px;">
+                                    <h4>Macronutrients per portion</h4>
+                                    <span style="color: #888888;">Macronutrients distribution of the recipe</span>
+                                    <br>
+                                    <div id="dataContainer" style="display: flex; flex-direction: column;">
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Sodium</div>
+                                            <div id="sodium">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Vitamin A</div>
+                                            <div id="vitaminA">0µg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Vitamin B-6</div>
+                                            <div id="vitaminB6">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Vitamin B-12</div>
+                                            <div id="vitaminB12">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Vitamin C</div>
+                                            <div id="vitaminC">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Vitamin D (D2+D3)</div>
+                                            <div id="vitaminD">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Vitamin E</div>
+                                            <div id="vitaminE">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Vitamin K</div>
+                                            <div id="vitaminK">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Sugars</div>
+                                            <div id="sugars">0g</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Calcium</div>
+                                            <div id="calcium">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Iron</div>
+                                            <div id="iron">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Magnesium</div>
+                                            <div id="magnesium">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Phosphorus</div>
+                                            <div id="phosphorus">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Potassium</div>
+                                            <div id="potassium">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Zinc</div>
+                                            <div id="zinc">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Copper</div>
+                                            <div id="copper">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Fluoride</div>
+                                            <div id="fluoride">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Manganese</div>
+                                            <div id="manganese">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Selenium</div>
+                                            <div id="selenium">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Thiamin</div>
+                                            <div id="thiamin">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Riboflavin</div>
+                                            <div id="riboflavin">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Niacin</div>
+                                            <div id="niacin">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; display: flex; justify-content: space-between;">
+                                            <div>Pantothenic Acid</div>
+                                            <div id="pantothenicAcid">0mg</div>
+                                        </div>
+                                        <div style="padding: 10px 0; background-color: #FAFAFB; display: flex; justify-content: space-between;">
+                                            <div>Folate, Total</div>
+                                            <div id="folate">0µg</div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     </div>

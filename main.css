@@ -1,0 +1,21 @@
+.nav-item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .nav-item i {
+    margin-right: 10px;
+  }
+
+  .nav-item.active {
+    background-color: rgb(26, 39, 51);
+  }
+
+  .nav-item.active i {
+    color: white;
+  }

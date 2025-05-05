@@ -1,7 +1,6 @@
 
 
 
-
 function nameUserLogin() {
     let userLogin = JSON.parse(localStorage.getItem("userLogin") || sessionStorage.getItem("userLogin"));
     let nameUserLogin = document.getElementById("nameUserLogin")
@@ -13,21 +12,121 @@ nameUserLogin()
 
 
 
-
-
-
-
 function render_content() {
     let data = document.getElementById("main-content")
-    let index = JSON.parse(localStorage.getItem("indexRecipes"));
+    let id = JSON.parse(localStorage.getItem("idRecipes"));
     let recipes = JSON.parse(localStorage.getItem("recipe"))
-    let recipe = recipes[index];
-    console.log(recipe)
+    let recipe = recipes.find(r => r.id === id);
+    let tempIngredient = ``
+    // Macronutrients
+    let totalEnergy = 0;
+    let totalCarbohydrate = 0;
+    let totalFat = 0;
+    let totalProtein = 0;
+
+    // Micronutrients
+    let totalAlcohol = 0;
+    let totalCaffeine = 0;
+    let totalCalcium = 0;
+    let totalChloride = 0;
+    let totalCholesterol = 0;
+    let totalCopper = 0;
+    let totalFattyAcidsMonounsaturated = 0;
+    let totalFattyAcidsPolyunsaturated = 0;
+    let totalFattyAcidsSaturated = 0;
+    let totalFattyAcidsTrans = 0;
+    let totalFiber = 0;
+    let totalFluoride = 0;
+    let totalFolateTotal = 0;
+    let totalFolicAcid = 0;
+    let totalIron = 0;
+    let totalLactose = 0;
+    let totalMagnesium = 0;
+    let totalManganese = 0;
+    let totalNiacin = 0;
+    let totalPantothenicAcid = 0;
+    let totalPhosphorus = 0;
+    let totalPotassium = 0;
+    let totalRiboflavin = 0;
+    let totalSelenium = 0;
+    let totalSodium = 0;
+    let totalStarch = 0;
+    let totalSugars = 0;
+    let totalThiamin = 0;
+    let totalVitaminA = 0;
+    let totalVitaminB6 = 0;
+    let totalVitaminB12 = 0;
+    let totalVitaminC = 0;
+    let totalVitaminD = 0;
+    let totalVitaminE = 0;
+    let totalVitaminK = 0;
+    let totalWater = 0;
+    let totalZinc = 0;
+
+
+
+
+    console.log("recipe:", recipes[id]);
+    console.log("ingredients:", recipe.ingredients);
+
+    for (let i = 0; i < recipe.ingredients.length; i++) {
+        let ingredient = recipe.ingredients[i];
+        if (ingredient && ingredient.name && ingredient.quantity !== undefined) {
+            tempIngredient += `
+        <div class="ingredient-item">${ingredient.name} (${ingredient.quantity})</div>
+        `;
+        }
+        if (ingredient.macronutrients) {
+            totalEnergy += ingredient.macronutrients.energy || 0;
+            totalCarbohydrate += ingredient.macronutrients.carbohydrate || 0;
+            totalFat += ingredient.macronutrients.fat || 0;
+            totalProtein += ingredient.macronutrients.protein || 0;
+        }
+        if (ingredient.micronutrients) {
+            totalAlcohol += ingredient.micronutrients.alcohol || 0;
+            totalCaffeine += ingredient.micronutrients.caffeine || 0;
+            totalCalcium += ingredient.micronutrients.calcium || 0;
+            totalChloride += ingredient.micronutrients.chloride || 0;
+            totalCholesterol += ingredient.micronutrients.cholesterol || 0;
+            totalCopper += ingredient.micronutrients.copper || 0;
+            totalFattyAcidsMonounsaturated += ingredient.micronutrients.fattyAcidsMonounsaturated || 0;
+            totalFattyAcidsPolyunsaturated += ingredient.micronutrients.fattyAcidsPolyunsaturated || 0;
+            totalFattyAcidsSaturated += ingredient.micronutrients.fattyAcidsSaturated || 0;
+            totalFattyAcidsTrans += ingredient.micronutrients.fattyAcidsTrans || 0;
+            totalFiber += ingredient.micronutrients.fiber || 0;
+            totalFluoride += ingredient.micronutrients.fluoride || 0;
+            totalFolateTotal += ingredient.micronutrients.folateTotal || 0;
+            totalFolicAcid += ingredient.micronutrients.folicAcid || 0;
+            totalIron += ingredient.micronutrients.iron || 0;
+            totalLactose += ingredient.micronutrients.lactose || 0;
+            totalMagnesium += ingredient.micronutrients.magnesium || 0;
+            totalManganese += ingredient.micronutrients.manganese || 0;
+            totalNiacin += ingredient.micronutrients.niacin || 0;
+            totalPantothenicAcid += ingredient.micronutrients.pantothenicAcid || 0;
+            totalPhosphorus += ingredient.micronutrients.phosphorus || 0;
+            totalPotassium += ingredient.micronutrients.potassium || 0;
+            totalRiboflavin += ingredient.micronutrients.riboflavin || 0;
+            totalSelenium += ingredient.micronutrients.selenium || 0;
+            totalSodium += ingredient.micronutrients.sodium || 0;
+            totalStarch += ingredient.micronutrients.starch || 0;
+            totalSugars += ingredient.micronutrients.sugars || 0;
+            totalThiamin += ingredient.micronutrients.thiamin || 0;
+            totalVitaminA += ingredient.micronutrients.vitaminA || 0;
+            totalVitaminB6 += ingredient.micronutrients.vitaminB6 || 0;
+            totalVitaminB12 += ingredient.micronutrients.vitaminB12 || 0;
+            totalVitaminC += ingredient.micronutrients.vitaminC || 0;
+            totalVitaminD += ingredient.micronutrients.vitaminD || 0;
+            totalVitaminE += ingredient.micronutrients.vitaminE || 0;
+            totalVitaminK += ingredient.micronutrients.vitaminK || 0;
+            totalWater += ingredient.micronutrients.water || 0;
+            totalZinc += ingredient.micronutrients.zinc || 0;
+        }
+    }
     data.innerHTML = `
     <div class="content-container">
                     <div class="left-card">
                         <div class="card text-bg-dark" style="border: none; width: 100%; height: 300px; position: relative; overflow: hidden;">
-                            <img src="../ChatGPT Image 10_59_20 21 thg 4, 2025.png" class="card-img" alt="..." style="object-fit: cover; width: 100%; height: 100%;">
+                            <img src="${recipe.coverSrc}" class="card-img" alt="No photo" style="object-fit: cover; width: 100%; height: 100%;">
                             
                             <div class="card-img-overlay d-flex flex-column justify-content-between" style="color: black; padding: 10px; border: 1px solid gray; ">
                                 <div style="display: flex; gap: 10px;">
@@ -37,7 +136,7 @@ function render_content() {
                                         </div>
                                     </div>
                                     <div class="community-item" style="width: 70px;">
-                                        <div><i class="fa-regular fa-heart"></i> ${foodLists.like}</div>
+                                        <div><i class="fa-regular fa-heart"></i>0 </div>
                                     </div>
                                 </div>
                                 <div style="box-shadow: 0px 2px 7px; width: fit-content; font-size: 15px; border-radius: 5px; background: white; padding: 5px 10px;">
@@ -62,31 +161,31 @@ function render_content() {
                             <div class="basic-info">
                                 <div class="info-row">
                                     <div class="info-label">Name</div>
-                                    <div class="info-value">${recipe.name != null && recipe.name !== "" ? recipe.name : 0}</div>
+                                    <div class="info-value">${recipe.name}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Description</div>
-                                    <div class="info-value">${recipe.description != null && recipe.description !== "" ? recipe.description : 0}</div>
+                                    <div class="info-value">${recipe.description}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Author</div>
-                                    <div class="info-value">${recipe.author != null && recipe.author !== "" ? recipe.author : 0}</div>
+                                    <div class="info-value">${recipe.author}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Total time</div>
-                                    <div class="info-value">${recipe.totalTime != null && recipe.totalTime !== "" ? recipe.totalTime : 0}</div>
+                                    <div class="info-value">${recipe.totalTime}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Preparation time</div>
-                                    <div class="info-value">${recipe.preparationTime != null && recipe.preparationTime !== "" ? recipe.preparationTime : 0}</div>
+                                    <div class="info-value">${recipe.preparationTime}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Final weight</div>
-                                    <div class="info-value">${recipe.finalWeight != null && recipe.finalWeight !== "" ? recipe.finalWeight : 0}</div>
+                                    <div class="info-value">${recipe.finalWeight}</div>
                                 </div>
                                 <div class="info-row">
                                     <div class="info-label">Portions</div>
-                                    <div class="info-value">${recipe.portions != null && recipe.portions !== "" ? recipe.portions : 0}</div>
+                                    <div class="info-value">${recipe.portions}</div>
                                 </div>
                             </div>
 
@@ -104,21 +203,7 @@ function render_content() {
                                 <div class="ingredients-list">
                                     <h4>Ingredients</h4>
                                     Search and add ingredients to recipe
-                                    <div class="ingredient-item">1 chopped cup (1/2" pieces) of cauliflower, raw (107 g)</div>
-                                    <div class="ingredient-item">1 tsp of spices, turmeric, ground (3 g)</div>
-                                    <div class="ingredient-item">1 tbsp of olive oil (14 g)</div>
-                                    <div class="ingredient-item">100 grams of rice, brown, medium-grain, raw</div>
-                                    <div class="ingredient-item">150 grams of edamame, frozen, unprepared</div>
-                                    <div class="ingredient-item">1 cup, sections of lemons, raw, without peel (212 g)</div>
-                                    <div class="ingredient-item">1 cup slices of cucumber, with peel, raw (104 g)</div>
-
-                                    <div class="ingredient-item">4 tbsps of parsley, fresh (15 g)</div>
-                                    <div class="ingredient-item">50 grams of nuts, cashew nuts, oil roasted, with salt added</div>
-                                    <div class="ingredient-item">5 tbsps of vinegar, balsamic (80 g)</div>
-                                    <div class="ingredient-item">4 tbsps of soy sauce made from soy (tamari) (72 g)</div>
-                                    <div class="ingredient-item">1 tablespoon of oil, sesame, salad or cooking (14 g)</div>
-                                    <div class="ingredient-item">1 tbsp of sauce, fish, ready-to-serve (18 g)</div>
-                                    <div class="ingredient-item">2 tbsps of syrups, maple (40 g)</div>
+                                    ${tempIngredient}
                                 </div>
                             </div>
 
@@ -128,7 +213,7 @@ function render_content() {
                                     Give instructions to prepare this recipe
                                     <div class="cooking-step">
                                         <div class="step-number">1</div>
-                                        <div class="step-instruction">${recipe.cookingMethods[0].content}</div>
+                                        <div class="step-instruction">${recipe.cookingMethods}</div>
                                     </div>
                                 </div>
                             </div>
@@ -140,25 +225,25 @@ function render_content() {
                                 <br>
                                 <div style="display: flex; justify-content: space-between;">
                                 <div>Energy</div>
-                                <div>${foodLists.macronutrients.energy} kcal</div>
+                                <div> kcal</div>
                                 </div>
                                 <hr>
                                 <div class="analysis-charts">
                                     <div class="chart-wrapper">
                                         <canvas id="fatChart"></canvas>
-                                        <div class="chart-label">${foodLists.macronutrients.fat}g</div>
+                                        <div class="chart-label">${totalFat}g</div>
                                     </div>
                                     <div class="chart-wrapper">
                                         <canvas id="carbChart"></canvas>
-                                        <div class="chart-label">${foodLists.macronutrients.carbohydrate}g</div>
+                                        <div class="chart-label">${totalCarbohydrate}g</div>
                                     </div>
                                     <div class="chart-wrapper">
                                         <canvas id="proteinChart"></canvas>
-                                        <div class="chart-label">${foodLists.macronutrients.protein}g</div>
+                                        <div class="chart-label">${totalProtein}g</div>
                                     </div>
                                     <div class="chart-wrapper">
                                         <canvas id="fiberChart"></canvas>
-                                        <div class="chart-label">${foodLists.micronutrients.fiber ? foodLists.micronutrients.fiber : 0}g</div>
+                                        <div class="chart-label">${totalFiber}g</div>
                                     </div>
                                 </div>
                                 <div class="chart-legend">
@@ -183,69 +268,103 @@ function render_content() {
                                 <div class="nutrient-list">
                                     <div class="nutrient-item">
                                         <div>Sodium</div>
-                                        <div>${foodLists.micronutrients.sodium != null && foodLists.micronutrients.sodium !== "" ? foodLists.micronutrients.sodium : 0}mg</div>
+                                        <div>${totalSodium} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin A</div>
-                                        <div>${foodLists.micronutrients.vitaminA != null && foodLists.micronutrients.vitaminA !== "" ? foodLists.micronutrients.vitaminA : 0}mg</div>
+                                        <div>${totalVitaminA} mcg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin B-6</div>
-                                        <div>${foodLists.micronutrients.vitaminB6 != null && foodLists.micronutrients.vitaminB6 !== "" ? foodLists.micronutrients.vitaminB6 : 0}mg</div>
+                                        <div>${totalVitaminB6} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin B-12</div>
-                                        <div>${foodLists.micronutrients.vitaminB12 != null && foodLists.micronutrients.vitaminB12 !== "" ? foodLists.micronutrients.vitaminB12 : 0}mg</div>
+                                        <div>${totalVitaminB12} mcg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin C</div>
-                                        <div>${foodLists.micronutrients.vitaminC != null && foodLists.micronutrients.vitaminC !== "" ? foodLists.micronutrients.vitaminC : 0}mg</div>
+                                        <div>${totalVitaminC} mg</div>
                                     </div>
                                     <div class="nutrient-item">
-                                        <div>Vitamin D</div>
-                                        <div>${foodLists.micronutrients.vitaminD != null && foodLists.micronutrients.vitaminD !== "" ? foodLists.micronutrients.vitaminD : 0}mg</div>
+                                        <div>Vitamin D (D2 + D3)</div>
+                                        <div>${totalVitaminD} mcg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin E</div>
-                                        <div>${foodLists.micronutrients.vitaminE != null && foodLists.micronutrients.vitaminE !== "" ? foodLists.micronutrients.vitaminE : 0}mg</div>
+                                        <div>${totalVitaminE} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Vitamin K</div>
-                                        <div>${foodLists.micronutrients.vitaminK != null && foodLists.micronutrients.vitaminK !== "" ? foodLists.micronutrients.vitaminK : 0}mg</div>
+                                        <div>${totalVitaminK} mcg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Sugars</div>
+                                        <div>${totalSugars} g</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Calcium</div>
-                                        <div>${foodLists.micronutrients.calcium != null && foodLists.micronutrients.calcium !== "" ? foodLists.micronutrients.calcium : 0}mg</div>
+                                        <div>${totalCalcium} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Iron</div>
-                                        <div>${foodLists.micronutrients.iron != null && foodLists.micronutrients.iron !== "" ? foodLists.micronutrients.iron : 0}mg</div>
+                                        <div>${totalIron} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Magnesium</div>
-                                        <div>${foodLists.micronutrients.magnesium != null && foodLists.micronutrients.magnesium !== "" ? foodLists.micronutrients.magnesium : 0}mg</div>
+                                        <div>${totalMagnesium} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Phosphorus</div>
-                                        <div>${foodLists.micronutrients.phosphorus != null && foodLists.micronutrients.phosphorus !== "" ? foodLists.micronutrients.phosphorus : 0}mg</div>
+                                        <div>${totalPhosphorus} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Potassium</div>
-                                        <div>${foodLists.micronutrients.potassium != null && foodLists.micronutrients.potassium !== "" ? foodLists.micronutrients.potassium : 0}mg</div>
+                                        <div>${totalPotassium} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Zinc</div>
-                                        <div>${foodLists.micronutrients.zinc != null && foodLists.micronutrients.zinc !== "" ? foodLists.micronutrients.zinc : 0}mg</div>
+                                        <div>${totalZinc} mg</div>
                                     </div>
                                     <div class="nutrient-item">
                                         <div>Copper</div>
-                                        <div>${foodLists.micronutrients.copper != null && foodLists.micronutrients.copper !== "" ? foodLists.micronutrients.copper : 0}mg</div>
+                                        <div>${totalCopper} mg</div>
                                     </div>
                                     <div class="nutrient-item">
-                                        <div>Chloride</div>
-                                        <div>${foodLists.micronutrients.chloride != null && foodLists.micronutrients.chloride !== "" ? foodLists.micronutrients.chloride : 0}mg</div>
+                                        <div>Fluoride</div>
+                                        <div>${totalFluoride} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Manganese</div>
+                                        <div>${totalManganese} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Selenium</div>
+                                        <div>${totalSelenium} mcg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Thiamin</div>
+                                        <div>${totalThiamin} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Riboflavin</div>
+                                        <div>${totalRiboflavin} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Niacin</div>
+                                        <div>${totalNiacin} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Pantothenic acid</div>
+                                        <div>${totalPantothenicAcid} mg</div>
+                                    </div>
+                                    <div class="nutrient-item">
+                                        <div>Folate, total</div>
+                                        <div>${totalFolateTotal} mcg</div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -254,7 +373,7 @@ function render_content() {
     
     
     `
-    render_chart(foodLists.macronutrients.fat, foodLists.macronutrients.carbohydrate, foodLists.macronutrients.protein, foodLists.micronutrients.fiber ? foodLists.micronutrients.fiber : 0)
+    render_chart(totalFat, totalCarbohydrate, totalProtein, totalFiber)
 }
 render_content()
 
@@ -317,17 +436,20 @@ function render_chart(Fat, Carbohydrate, Protein, Fiber) {
     });
 }
 
+
+
+
 let isCollapsed = false;
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebars');
     const content = document.getElementById('content');
     if (!isCollapsed) {
-      sidebar.style.display = 'none';
-      content.style.width = '100%';
+        sidebar.style.display = 'none';
+        content.style.width = '100%';
     } else {
-      sidebar.style.display = 'flex';
-      sidebar.style.width = '20%';
-      content.style.width = '80%';
+        sidebar.style.display = 'flex';
+        sidebar.style.width = '20%';
+        content.style.width = '80%';
     }
     isCollapsed = !isCollapsed;
-  }
+}
