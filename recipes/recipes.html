@@ -81,9 +81,9 @@
               style="width: 50%; border-radius: 10px;">
             <div
               style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden; font-family: sans-serif;">
-              <div
+              <div  onclick="toggleSortOrder()"
                 style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
-                <i class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
+                <i id="sortIcon" class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
               </div>
               <select id="sortNutrient" onchange="sortByNutrient()" style="border: none; outline: none; padding: 8px 12px; font-size: 16px; color: gray;">
                 <option value="">Sort by nutrient</option>

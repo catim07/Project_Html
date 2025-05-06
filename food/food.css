@@ -1,4 +1,4 @@
-/* Updated modal input styles to match addfood.html */
+
 .modal-body input {
   background-color: #a5a5a5;
   padding: 20px 10px;
@@ -72,15 +72,11 @@
   background-color: rgb(221, 221, 221);
   border-radius: 5px;
 }
-
-/* Updated CSS for modal to ensure Micronutrients section has 3 equal columns */
 .modal-body .micronutrient-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
-
-/* Align label and input horizontally in one row */
 .modal-body .micronutrient-grid .nutrient-item {
   display: flex;
   flex-direction: row;

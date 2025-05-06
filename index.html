@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +13,6 @@
         window.location.href = "/authen/signin.html"
       }
     }
-
   </script>
 </head>
 
@@ -47,8 +45,6 @@
         </p>
       </div>
     </div>
-
-    
     <div id="content" style="width: 80%; overflow-y: auto; transition: width 0.3s;">
       
       <div style="width: 100%; display: flex; flex-direction: column; padding: 20px;">
@@ -79,8 +75,8 @@
             <input oninput="search()" type="text" id="search" placeholder="Search food" style="width: 50%; border-radius: 10px;">
             
             <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden;">
-              <div style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
-                <i class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
+              <div onclick="toggleSortOrder()" style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
+                <i  id="sortIcon" class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
               </div>
               <select id="sortNutrient" onchange="sortByNutrient()" style="border: none; outline: none; padding: 8px 12px; font-size: 16px; color: gray;">
                 <option value="">Sort by nutrient</option>

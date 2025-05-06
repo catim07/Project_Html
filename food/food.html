@@ -8,13 +8,13 @@
   
   <link rel="stylesheet" href="./food.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <!-- <script>
+  <script>
     if (!localStorage.getItem("userLogin")) {
       if (!sessionStorage.getItem("userLogin")) {
         window.location.href = "/authen/signin.html"
       }
     }
-  </script> -->
+  </script>
   <script src="../ingredient/ingredient.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
 </head>
@@ -75,9 +75,9 @@
               style="width: 50%; border-radius: 10px;">
             <div
               style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden; font-family: sans-serif;">
-              <div
+              <div onclick="toggleSortOrder()"
                 style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
-                <i class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
+                <i id="sortIcon" class="fa-solid fa-arrow-up-short-wide" style="color: gray;"></i>
               </div>
               <select id="sortNutrient" onchange="sortByNutrient()"
                 style="border: none; outline: none; padding: 8px 12px; font-size: 16px; color: gray;">

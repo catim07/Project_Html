@@ -13,7 +13,7 @@ function nextPage(id) {
 }
 
 let curPageFood = 1;
-const maxItemFood = 2;
+const maxItemFood = 6;
 let currentFoodList = JSON.parse(localStorage.getItem("recipe")) || [];
 
 function renderFoodFromList(list) {
@@ -185,23 +185,23 @@ function search() {
   renderFoodPagin(currentFoodList);
 }
 
-function sortByNutrient() {
-  let selectedNutrient = document.getElementById("sortNutrient").value;
-  let recipeList = JSON.parse(localStorage.getItem("recipe"));
-  recipeList.sort((a, b) =>{
-    let aTotal = 0;
-    for (let i = 0; i < a.ingredients.length; i++) {
-        aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
-    }
-    let bTotal = 0;
-    for (let i = 0; i < b.ingredients.length; i++) {
-        bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
-    }
-    return bTotal - aTotal;
-});
-  renderFoodFromList(recipeList);
-  renderFoodPagin(recipeList);
-}
+// function sortByNutrient() {
+//   let selectedNutrient = document.getElementById("sortNutrient").value;
+//   let recipeList = JSON.parse(localStorage.getItem("recipe"));
+//   recipeList.sort((a, b) =>{
+//     let aTotal = 0;
+//     for (let i = 0; i < a.ingredients.length; i++) {
+//         aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+//     }
+//     let bTotal = 0;
+//     for (let i = 0; i < b.ingredients.length; i++) {
+//         bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+//     }
+//     return bTotal - aTotal;
+// });
+//   renderFoodFromList(recipeList);
+//   renderFoodPagin(recipeList);
+// }
 
 function searchCategory() {
   let keyword = document.getElementById("category").value.toLowerCase();
@@ -230,4 +230,54 @@ function toggleSidebar() {
     content.style.width = '80%';
   }
   isCollapsed = !isCollapsed;
+}
+
+let sortOrder = 1;
+
+function toggleSortOrder() {
+  const icon = document.getElementById("sortIcon");
+
+  if (sortOrder === 1) {
+    sortOrder = 2;
+    icon.className = "fa-solid fa-arrow-up-wide-short";
+  } else {
+    sortOrder = 1;
+    icon.className = "fa-solid fa-arrow-up-short-wide";
+  }
+
+  sortByNutrient();
+}
+
+function sortByNutrient() {
+  let selectedNutrient = document.getElementById("sortNutrient").value;
+  let recipeList = JSON.parse(localStorage.getItem("recipe"));
+  if (sortOrder === 1) {
+  recipeList.sort((a, b) =>{
+    let aTotal = 0;
+    for (let i = 0; i < a.ingredients.length; i++) {
+        aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    let bTotal = 0;
+    for (let i = 0; i < b.ingredients.length; i++) {
+        bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    return aTotal - bTotal;
+});
+  renderFoodFromList(recipeList);
+  renderFoodPagin(recipeList);
+  } else {;
+  recipeList.sort((a, b) =>{
+    let aTotal = 0;
+    for (let i = 0; i < a.ingredients.length; i++) {
+        aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    let bTotal = 0;
+    for (let i = 0; i < b.ingredients.length; i++) {
+        bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    return bTotal - aTotal;
+});
+  renderFoodFromList(recipeList);
+  renderFoodPagin(recipeList);
+  }
 }

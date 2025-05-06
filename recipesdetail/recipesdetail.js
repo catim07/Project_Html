@@ -225,7 +225,7 @@ function render_content() {
                                 <br>
                                 <div style="display: flex; justify-content: space-between;">
                                 <div>Energy</div>
-                                <div> kcal</div>
+                                <div>${totalEnergy} kcal</div>
                                 </div>
                                 <hr>
                                 <div class="analysis-charts">

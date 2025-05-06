@@ -115,17 +115,58 @@ function setPageFood(index) {
 }
 
 
+// function sortByNutrient() {
+//   let selectedNutrient = document.getElementById("sortNutrient").value;
+//   let foodList = JSON.parse(localStorage.getItem("foodList"));
+//   foodList.sort((a, b) => {
+//     let start = a.macronutrients[selectedNutrient] || 0;
+//     let end = b.macronutrients[selectedNutrient] || 0;
+//     return end - start;
+//   });
+//   renderFoodFromList(foodList);
+//   renderFoodPagin(foodList)
+// }
+
+
+let sortOrder = 1;
+function toggleSortOrder() {
+  const icon = document.getElementById("sortIcon");
+
+  if (sortOrder === 1) {
+    sortOrder = 2;
+    icon.className = "fa-solid fa-arrow-up-wide-short";
+  } else {
+    sortOrder = 1;
+    icon.className = "fa-solid fa-arrow-up-short-wide";
+  }
+
+  sortByNutrient();
+}
 function sortByNutrient() {
   let selectedNutrient = document.getElementById("sortNutrient").value;
   let foodList = JSON.parse(localStorage.getItem("foodList"));
-  foodList.sort((a, b) => {
-    let start = a.macronutrients[selectedNutrient] || 0;
-    let end = b.macronutrients[selectedNutrient] || 0;
-    return end - start;
-  });
-  renderFoodFromList(foodList);
-  renderFoodPagin(foodList)
+  if (sortOrder === 1) {
+    foodList.sort((a, b) => {
+      let start = a.macronutrients[selectedNutrient] || 0;
+      let end = b.macronutrients[selectedNutrient] || 0;
+      return start - end;
+    });
+    renderFoodFromList(foodList);
+    renderFoodPagin(foodList)
+  } else {
+    foodList.sort((a, b) => {
+      let start = a.macronutrients[selectedNutrient] || 0;
+      let end = b.macronutrients[selectedNutrient] || 0;
+      return end - start;
+    });
+    renderFoodFromList(foodList);
+    renderFoodPagin(foodList)
+  }
 }
+
+
+
+
 function searchCategory() {
   let keyword = document.getElementById("category").value.toLowerCase();
   let foodList = JSON.parse(localStorage.getItem("foodList"));
@@ -152,8 +193,6 @@ function toggleSidebar() {
   }
   isCollapsed = !isCollapsed;
 }
-
-// Update the "changeFood" function to open the modal and populate data
 function changeFood(id) {
     const foodList = JSON.parse(localStorage.getItem("foodList")) || [];
     const food = foodList.find(item => item.id === id);
@@ -235,13 +274,9 @@ function changeFood(id) {
             modal.hide();
         }
     };
-
-    // Open the modal
     const modal = new bootstrap.Modal(document.getElementById('addFoodModal'));
     modal.show();
 }
-
-// Add a function to clear modal fields
 function clearFoodModal() {
     document.querySelector('input[name="name"]').value = "";
     document.querySelector('input[name="source"]').value = "";
@@ -256,8 +291,6 @@ function clearFoodModal() {
     const micronutrientInputs = document.querySelectorAll('.micronutrient-grid input');
     micronutrientInputs.forEach(input => input.value = "");
 }
-
-// Add a function to save new food to localStorage
 function saveFood() {
     const nameInput = document.querySelector('input[name="name"]');
     const sourceInput = document.querySelector('input[name="source"]');

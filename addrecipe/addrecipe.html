@@ -297,9 +297,9 @@
                                                     style="width: calc(100% / 3);  border-radius: 10px;">
                                                 <div
                                                     style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px; width: 240px; overflow: hidden; font-family: sans-serif;width: calc(100% / 3); ">
-                                                    <div
+                                                    <div  onclick="toggleSortOrder()"
                                                         style="padding: 8px 10px; border-right: 1px solid #ccc; background-color: white; display: flex; align-items: center;">
-                                                        <i class="fa-solid fa-arrow-up-short-wide"
+                                                        <i  id="sortIcon" class="fa-solid fa-arrow-up-short-wide"
                                                             style="color: gray;"></i>
                                                     </div>
                                                     <select id="sortNutrient" oninput="sortByNutrient()"
@@ -462,7 +462,7 @@
                                     <br>
                                     <div style="display: flex; justify-content: space-between;">
                                         <div>Energy</div>
-                                        <div>351 kcal</div>
+                                        <div id="energy">0 kcal</div>
                                     </div>
                                     <hr>
                                     <div style="display: flex; justify-content: space-around; margin-top: 20px;">

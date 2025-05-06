@@ -391,15 +391,48 @@ function searchCategory() {
     renderIngredients(temp);
 }
 
+// function sortByNutrient() {
+//     let nutrient = document.getElementById("sortNutrient").value;
+//     let foodList = JSON.parse(localStorage.getItem("foodList")) || [];
+//     foodList.sort(function(a, b) {
+//         return (b.macronutrients[nutrient] || 0) - (a.macronutrients[nutrient] || 0);
+//     });
+//     renderPaginatedIngredients(foodList);
+// }
+
+let sortOrder = 1;
+function toggleSortOrder() {
+  const icon = document.getElementById("sortIcon");
+
+  if (sortOrder === 1) {
+    sortOrder = 2;
+    icon.className = "fa-solid fa-arrow-up-wide-short";
+  } else {
+    sortOrder = 1;
+    icon.className = "fa-solid fa-arrow-up-short-wide";
+  }
+
+  sortByNutrient();
+}
 function sortByNutrient() {
-    let nutrient = document.getElementById("sortNutrient").value;
-    let foodList = JSON.parse(localStorage.getItem("foodList")) || [];
-    foodList.sort(function(a, b) {
-        return (b.macronutrients[nutrient] || 0) - (a.macronutrients[nutrient] || 0);
+  let selectedNutrient = document.getElementById("sortNutrient").value;
+  let foodList = JSON.parse(localStorage.getItem("foodList"));
+  if (sortOrder === 1) {
+    foodList.sort((a, b) => {
+      let start = a.macronutrients[selectedNutrient] || 0;
+      let end = b.macronutrients[selectedNutrient] || 0;
+      return start - end;
     });
     renderPaginatedIngredients(foodList);
+  } else {
+    foodList.sort((a, b) => {
+      let start = a.macronutrients[selectedNutrient] || 0;
+      let end = b.macronutrients[selectedNutrient] || 0;
+      return end - start;
+    });
+    renderPaginatedIngredients(foodList);
+  }
 }
-
   
 
 function setIngredientPage(index) {
@@ -431,6 +464,7 @@ function showDropdown() {
 
 function updateNutritionDetails() {
     let totalSodium = 0,
+        totalEnergy=0,
         totalVitaminA = 0,
         totalVitaminB6 = 0,
         totalVitaminB12 = 0,
@@ -457,8 +491,7 @@ function updateNutritionDetails() {
 
     selectedFoods.forEach(id => {
         const f = findFoodById(id);
-        if (!f || !f.micronutrients) return;
-        
+        totalEnergy   += f.macronutrients.energy    || 0;
         totalSodium    += f.micronutrients.sodium    || 0;
         totalVitaminA  += f.micronutrients.vitaminA  || 0;
         totalVitaminB6 += f.micronutrients.vitaminB6 || 0;
@@ -484,7 +517,7 @@ function updateNutritionDetails() {
         totalPantothenicAcid += f.micronutrients.pantothenicAcid || 0;
         totalFolate     += f.micronutrients.folate     || 0;
     });
-
+    document.getElementById("energy").textContent   = `${Math.round(totalEnergy)} kcal`;
     document.getElementById("sodium").textContent    = `${Math.round(totalSodium)} mg`;
     document.getElementById("vitaminA").textContent  = `${Math.round(totalVitaminA)} µg`;
     document.getElementById("vitaminB6").textContent = `${Math.round(totalVitaminB6)} mg`;

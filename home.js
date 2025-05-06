@@ -178,10 +178,56 @@ function setPageRecipe(index) {
   renderRecipePagin(recipeList);
 }
 
+// function sortByNutrient() {
+//   let selectedNutrient = document.getElementById("sortNutrient").value;
+//   let recipeList = JSON.parse(localStorage.getItem("recipe"));
+
+//   recipeList.sort((a, b) =>{
+//     let aTotal = 0;
+//     for (let i = 0; i < a.ingredients.length; i++) {
+//         aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+//     }
+//     let bTotal = 0;
+//     for (let i = 0; i < b.ingredients.length; i++) {
+//         bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+//     }
+//     return bTotal - aTotal;
+// });
+//   renderRecipeFromList(recipeList);
+//   renderRecipePagin(recipeList);
+// }
+let sortOrder = 1;
+function toggleSortOrder() {
+  const icon = document.getElementById("sortIcon");
+
+  if (sortOrder === 1) {
+    sortOrder = 2;
+    icon.className = "fa-solid fa-arrow-up-wide-short";
+  } else {
+    sortOrder = 1;
+    icon.className = "fa-solid fa-arrow-up-short-wide";
+  }
+
+  sortByNutrient();
+}
 function sortByNutrient() {
   let selectedNutrient = document.getElementById("sortNutrient").value;
   let recipeList = JSON.parse(localStorage.getItem("recipe"));
-
+  if (sortOrder === 1) {
+  recipeList.sort((a, b) =>{
+    let aTotal = 0;
+    for (let i = 0; i < a.ingredients.length; i++) {
+        aTotal += a.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    let bTotal = 0;
+    for (let i = 0; i < b.ingredients.length; i++) {
+        bTotal += b.ingredients[i].macronutrients?.[selectedNutrient] || 0;
+    }
+    return aTotal - bTotal;
+});
+renderRecipeFromList(recipeList);
+renderRecipePagin(recipeList);
+  } else {;
   recipeList.sort((a, b) =>{
     let aTotal = 0;
     for (let i = 0; i < a.ingredients.length; i++) {
@@ -193,9 +239,13 @@ function sortByNutrient() {
     }
     return bTotal - aTotal;
 });
-  renderRecipeFromList(recipeList);
-  renderRecipePagin(recipeList);
+renderRecipeFromList(recipeList);
+renderRecipePagin(recipeList);
+  }
 }
+
+
+
 
 
 
