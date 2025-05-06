@@ -64,11 +64,6 @@ function render_content() {
     let totalZinc = 0;
 
 
-
-
-    console.log("recipe:", recipes[id]);
-    console.log("ingredients:", recipe.ingredients);
-
     for (let i = 0; i < recipe.ingredients.length; i++) {
         let ingredient = recipe.ingredients[i];
         if (ingredient && ingredient.name && ingredient.quantity !== undefined) {
@@ -406,8 +401,6 @@ function render_chart(Fat, Carbohydrate, Protein, Fiber) {
     createDoughnutChart('proteinChart', Protein, '#4DB6AC');
     createDoughnutChart('fiberChart', Fiber, '#90A4AE');
 
-
-    console.log(Carbohydrate)
     const ctx = document.getElementById('myChart').getContext('2d');
     const data = {
         labels: ['Fat', 'Carbohydrate', 'Protein'],

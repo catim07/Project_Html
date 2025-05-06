@@ -1,3 +1,5 @@
+
+
 function nameUserLogin() {
   let userLogin = JSON.parse(localStorage.getItem("userLogin") || sessionStorage.getItem("userLogin"));
   let nameUserLogin = document.getElementById("nameUserLogin");
@@ -13,7 +15,7 @@ function nextPage(id) {
 }
 
 let curPageFood = 1;
-const maxItemFood = 6;
+const maxItemFood = 4;
 let currentFoodList = JSON.parse(localStorage.getItem("recipe")) || [];
 
 function renderFoodFromList(list) {
@@ -64,7 +66,8 @@ function renderFoodFromList(list) {
     position: relative;
     color: white;
     overflow: hidden;
-  ">
+  " onmouseover="this.style.cssText += 'box-shadow: 0 8px 20px rgba(0,0,0,0.5); transform: translateY(-5px);'" 
+onmouseout="this.style.cssText += 'box-shadow: none; transform: translateY(0);'">
 
   <!-- Lớp phủ tối để chữ dễ đọc -->
   <div style="
@@ -74,7 +77,8 @@ function renderFoodFromList(list) {
     height: 100%; 
     background: rgba(0,0,0,0.4); 
     border-radius: 10px;
-    z-index: 1;">
+    z-index: 1;"
+    >
   </div>
 
   <!-- Nội dung chính -->

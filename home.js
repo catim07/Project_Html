@@ -1,5 +1,5 @@
 let curPageRecipe = 1;
-const maxItemRecipe = 5;
+const maxItemRecipe = 4;
 
 function renderRecipeFromList(list) {
   
@@ -46,7 +46,10 @@ function renderRecipeFromList(list) {
     position: relative;
     color: white;
     overflow: hidden;
-  ">
+    cursor: pointer;
+  "
+   onmouseover="this.style.cssText += 'box-shadow: 0 8px 20px rgba(0,0,0,0.5); transform: translateY(-5px);'" 
+onmouseout="this.style.cssText += 'box-shadow: none; transform: translateY(0);'">
 
   <!-- Lớp phủ tối để chữ dễ đọc -->
   <div style="

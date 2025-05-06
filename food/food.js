@@ -7,6 +7,15 @@ function nameUserLogin() {
 }
 nameUserLogin()
 
+function loggout() {
+  if (!confirm("bạn có chắc đăng xuất không")) {
+    return
+  }
+  localStorage.removeItem("userLogin")
+  sessionStorage.removeItem("userLogin")
+  window.location.href = "../authen/signin.html"
+}
+
 function searchFood() {
   let keyword = document.getElementById("search").value.toLowerCase();
   let foodList = JSON.parse(localStorage.getItem("foodList"));
@@ -28,7 +37,7 @@ categoryInput.addEventListener('input', () => {
 });
 
 let curPageFood = 1;
-const maxItemFood = 5;
+const maxItemFood = 4;
 function renderFoodFromList(list) {
   let dataFoods = document.getElementById("dataFoods");
   let startIndex = (curPageFood - 1) * maxItemFood;
@@ -39,7 +48,9 @@ function renderFoodFromList(list) {
   for (let i = 0; i < temp.length; i++) {
     data += `
       <div data-bs-toggle="modal" data-bs-target="#addFoodModal" onclick="changeFood(${temp[i].id})"  
-           style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px;">
+           style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px; cursor:pointer;" 
+           onmouseover="this.style.cssText += 'box-shadow: 0 8px 20px rgba(0,0,0,0.5); transform: translateY(-5px);'" 
+onmouseout="this.style.cssText += 'box-shadow: none; transform: translateY(0);'">
           <span>
               ${temp[i].name}<br>
               <small style="color: gray;">${temp[i].source}</small>
@@ -53,7 +64,9 @@ function renderFoodFromList(list) {
   }
 
   data += `
-  <div data-bs-toggle="modal" data-bs-target="#addFoodModal" onclick="clearFoodModal()" style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px; background: white;cursor: pointer">
+  <div data-bs-toggle="modal" data-bs-target="#addFoodModal" onclick="clearFoodModal()" style="display: flex; justify-content: space-between; border: 1px solid #0c0c0c; padding: 10px; margin-right: 20px; padding-right: 30px; background: white;cursor: pointer" 
+  onmouseover="this.style.cssText += 'box-shadow: 0 8px 20px rgba(0,0,0,0.5); transform: translateY(-5px);'" 
+onmouseout="this.style.cssText += 'box-shadow: none; transform: translateY(0);'">
       <div style="font-size: 25px; ">
           <i class="fa-regular fa-square-plus"></i>
           Create food
